@@ -116,7 +116,7 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
                 } else {
                     transaction.show(news_fragment);
                 }
-                news_fragment.tryUpdateNewsList();
+                news_fragment.tryRefreshNewsList();
                 updateActionBar(getResources().getString(R.string.tab_news), true);
                 updateCurrentTab(TAB_NEWS);
                 break;

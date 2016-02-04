@@ -32,6 +32,8 @@ public class NewsFragment extends Fragment {
 
     private int selected_category;
 
+    private int current_page;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,7 @@ public class NewsFragment extends Fragment {
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        tryUpdateNewsList();
+                        tryRefreshNewsList();
                     }
                 }
         );
@@ -104,7 +106,7 @@ public class NewsFragment extends Fragment {
         PostCreateTask task = new PostCreateTask() {
             @Override
             public void onSuccess(Integer result) {
-                tryUpdateNewsList();
+                tryRefreshNewsList();
             }
 
             @Override
@@ -115,12 +117,13 @@ public class NewsFragment extends Fragment {
         task.execute(Integer.toString(selected_category), content);
     }
 
-    public void tryUpdateNewsList() {
+    public void tryRefreshNewsList() {
+        current_page = 0;
         PostListTask task = new PostListTask() {
             @Override
             public void onSuccess(ArrayList<Post> post_list) {
                 swipe_container.setRefreshing(false);
-                updateNewsList(post_list);
+                setPostList(post_list);
             }
 
             @Override
@@ -129,12 +132,37 @@ public class NewsFragment extends Fragment {
                 Log.error("News", error_code);
             }
         };
-        task.execute(0, 10, 0);
+        task.execute(current_page, 10, 0);
     }
 
-    public void updateNewsList(ArrayList<Post> post_list) {
+    public void tryReadMorePosts() {
+        PostListTask task = new PostListTask() {
+            @Override
+            public void onSuccess(ArrayList<Post> post_list) {
+                swipe_container.setRefreshing(false);
+                addPostList(post_list);
+            }
+
+            @Override
+            public void onFail(int error_code) {
+                swipe_container.setRefreshing(false);
+                Log.error("News", error_code);
+            }
+        };
+        task.execute(++current_page, 10, 0);
+    }
+
+    public void setPostList(ArrayList<Post> post_list) {
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.news_layout);
         layout.removeAllViews();
+        for (Post post : post_list) {
+            PostView post_view = new PostView(getActivity(), post);
+            layout.addView(post_view);
+        }
+    }
+
+    public void addPostList(ArrayList<Post> post_list) {
+        LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.news_layout);
         for (Post post : post_list) {
             PostView post_view = new PostView(getActivity(), post);
             layout.addView(post_view);
