@@ -141,6 +141,7 @@ public class NewsFragment extends Fragment {
             public void onSuccess(ArrayList<Post> post_list) {
                 swipe_container.setRefreshing(false);
                 addPostList(post_list);
+                //this is a test
             }
 
             @Override
