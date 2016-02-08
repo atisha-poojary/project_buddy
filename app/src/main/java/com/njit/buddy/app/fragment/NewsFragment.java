@@ -10,11 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import com.njit.buddy.app.R;
 import com.njit.buddy.app.entity.Post;
 import com.njit.buddy.app.network.task.PostListTask;
 import com.njit.buddy.app.network.task.PostCreateTask;
 import com.njit.buddy.app.util.Log;
+import com.njit.buddy.app.widget.PostScrollListener;
+import com.njit.buddy.app.widget.PostScrollView;
 import com.njit.buddy.app.widget.PostView;
 
 import java.util.ArrayList;
@@ -56,6 +59,13 @@ public class NewsFragment extends Fragment {
                     }
                 }
         );
+        PostScrollView post_scroll_view = (PostScrollView) getActivity().findViewById(R.id.scroll_view_news);
+        post_scroll_view.setScrollListener(new PostScrollListener() {
+            @Override
+            public void onBottomReached() {
+                tryReadMorePosts();
+            }
+        });
     }
 
     private void createDialogs() {
