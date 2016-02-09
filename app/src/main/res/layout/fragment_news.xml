@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/swipe_container">
+        android:id="@+id/swipe_container_news">
 
     <com.njit.buddy.app.widget.PostScrollView
             android:layout_width="match_parent"

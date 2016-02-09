@@ -32,7 +32,7 @@ public class AttentionFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        swipe_container = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipe_container);
+        swipe_container = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipe_container_attention);
         swipe_container.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
@@ -41,7 +41,7 @@ public class AttentionFragment extends Fragment {
                     }
                 }
         );
-        PostScrollView post_scroll_view = (PostScrollView) getActivity().findViewById(R.id.scroll_view_news);
+        PostScrollView post_scroll_view = (PostScrollView) getActivity().findViewById(R.id.scroll_view_attention);
         post_scroll_view.setScrollListener(new PostScrollListener() {
             @Override
             public void onBottomReached() {
@@ -51,7 +51,7 @@ public class AttentionFragment extends Fragment {
     }
 
     public void tryRefreshAttentionList() {
-        current_page=0;
+        current_page = 0;
         PostListTask task = new PostListTask() {
             @Override
             public void onSuccess(ArrayList<Post> post_list) {
@@ -68,7 +68,7 @@ public class AttentionFragment extends Fragment {
         task.execute(current_page, 10, 1);
     }
 
-    public void tryReadMorePosts(){
+    public void tryReadMorePosts() {
         PostListTask task = new PostListTask() {
             @Override
             public void onSuccess(ArrayList<Post> post_list) {
@@ -96,7 +96,7 @@ public class AttentionFragment extends Fragment {
         }
     }
 
-    private void addAttentionList(ArrayList<Post> post_list){
+    private void addAttentionList(ArrayList<Post> post_list) {
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.attention_layout);
         for (Post post : post_list) {
             PostView post_view = new PostView(getActivity(), post);

@@ -49,7 +49,7 @@ public class NewsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        swipe_container = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipe_container);
+        swipe_container = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipe_container_news);
         swipe_container.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
