@@ -130,7 +130,7 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
                 } else {
                     transaction.show(attention_fragment);
                 }
-                attention_fragment.tryUpdateAttentionList();
+                attention_fragment.tryRefreshAttentionList();
                 updateActionBar(getResources().getString(R.string.tab_attention), false);
                 updateCurrentTab(TAB_ATTENTION);
                 break;
