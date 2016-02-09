@@ -21,8 +21,10 @@ import java.util.ArrayList;
  * @author toyknight 8/15/2015.
  */
 public class AttentionFragment extends Fragment {
+
     private SwipeRefreshLayout swipe_container;
     private int current_page;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_attention, container, false);
@@ -53,11 +55,13 @@ public class AttentionFragment extends Fragment {
         PostListTask task = new PostListTask() {
             @Override
             public void onSuccess(ArrayList<Post> post_list) {
+                swipe_container.setRefreshing(false);
                 setAttentionList(post_list);
             }
 
             @Override
             public void onFail(int error_code) {
+                swipe_container.setRefreshing(false);
                 Log.d("Attention", "Error code " + error_code);
             }
         };
@@ -68,17 +72,20 @@ public class AttentionFragment extends Fragment {
         PostListTask task = new PostListTask() {
             @Override
             public void onSuccess(ArrayList<Post> post_list) {
-                setAttentionList(post_list);
+                swipe_container.setRefreshing(false);
+                addAttentionList(post_list);
             }
 
             @Override
             public void onFail(int error_code) {
+                swipe_container.setRefreshing(false);
                 Log.d("Attention", "Error code " + error_code);
             }
         };
         task.execute(++current_page, 10, 1);
 
     }
+
     private void setAttentionList(ArrayList<Post> post_list) {
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.attention_layout);
         layout.removeAllViews();
