@@ -4,19 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import com.njit.buddy.app.entity.Profile;
-import com.njit.buddy.app.network.Connector;
-import com.njit.buddy.app.network.task.LoginTask;
-import com.njit.buddy.app.network.task.ProfileViewTask;
 import com.njit.buddy.app.network.task.RegisterTask;
 import com.njit.buddy.app.util.EmailValidator;
 import com.njit.buddy.app.util.PasswordValidator;
@@ -115,79 +109,31 @@ public class RegisterActivity extends Activity {
         showProgress(true);
         new RegisterTask() {
             @Override
-            protected void onPostExecute(final Boolean approved) {
-                onRegisterPost(approved);
+            public void onSuccess(Integer result) {
+                showProgress(false);
+                gotoLoginPageAndLogin();
+            }
+
+            @Override
+            public void onFail(int error_code) {
+                showProgress(false);
             }
         }.execute(email, username, password);
     }
 
-    private void onRegisterPost(final Boolean approved) {
-        showProgress(false);
-        if (approved) {
-            String email = m_email.getText().toString();
-            String password = m_password.getText().toString();
-            attemptLogin(email, password);
-        }
-    }
+    public void gotoLoginPageAndLogin() {
+        String email = m_email.getText().toString();
+        String password = m_password.getText().toString();
 
-    private void attemptLogin(String email, String password) {
-        showProgress(true);
-        new LoginTask() {
-            @Override
-            public void onSuccess(String token) {
-                RegisterActivity.this.onLoginSuccess(token);
-            }
-
-            @Override
-            public void onFail(int error_code) {
-                RegisterActivity.this.onLoginFail(error_code);
-            }
-        }.execute(email, password);
-    }
-
-    public void onLoginSuccess(String token) {
-        Connector.setAuthenticationToken(token);
-        SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(getResources().getString(R.string.key_token), token);
-        editor.apply();
-        ProfileViewTask task = new ProfileViewTask() {
-            @Override
-            public void onSuccess(Profile result) {
-                onProfileSuccess(result);
-            }
-
-            @Override
-            public void onFail(int error_code) {
-                onLoginFail(error_code);
-            }
-        };
-        task.execute(0);
-    }
-
-    public void onProfileSuccess(Profile profile) {
-        SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(getResources().getString(R.string.key_username), profile.getUsername());
-        editor.remove(getResources().getString(R.string.key_tab));
-        editor.apply();
-        gotoBuddyPage();
-    }
-
-    public void onLoginFail(int error_code) {
-        showProgress(false);
-        m_password.setError(getString(R.string.error_incorrect_password));
-        m_password.requestFocus();
-    }
-
-    public void gotoLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("email", email);
+        intent.putExtra("password", password);
         startActivity(intent);
         finish();
     }
 
-    public void gotoBuddyPage() {
-        Intent intent = new Intent(this, BuddyActivity.class);
+    public void gotoLoginPage() {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

@@ -3,6 +3,7 @@ package com.njit.buddy.app.network.task;
 import android.os.AsyncTask;
 import android.util.Log;
 import com.njit.buddy.app.network.Connector;
+import com.njit.buddy.app.network.ResponseValue;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,10 +12,10 @@ import java.io.IOException;
 /**
  * @author toyknight 11/2/2015.
  */
-public abstract class RegisterTask extends AsyncTask<String, Void, Boolean> {
+public abstract class RegisterTask extends AsyncTask<String, Void, Integer> implements ResponseHandler<Integer> {
 
     @Override
-    protected Boolean doInBackground(String... params) {
+    protected Integer doInBackground(String... params) {
         String email = params[0];
         String username = params[1];
         String password = params[2];
@@ -27,17 +28,23 @@ public abstract class RegisterTask extends AsyncTask<String, Void, Boolean> {
 
             String result = Connector.executePost(Connector.SERVER_ADDRESS + "/register", request_body.toString());
             JSONObject response = new JSONObject(result);
-            return response.getInt("responsevalue") == 1;
+            return response.getInt("responsevalue");
         } catch (JSONException ex) {
             Log.d("Login", ex.toString());
-            return false;
+            return ResponseValue.BUDDY_BAD_REQUEST;
         } catch (IOException ex) {
             Log.d("Login", ex.toString());
-            return false;
+            return ResponseValue.BUDDY_BAD_REQUEST;
         }
     }
 
     @Override
-    abstract protected void onPostExecute(final Boolean approved);
+    protected final void onPostExecute(final Integer response_code) {
+        if (response_code == ResponseValue.BUDDY_OK) {
+            onSuccess(response_code);
+        } else {
+            onFail(response_code);
+        }
+    }
 
 }

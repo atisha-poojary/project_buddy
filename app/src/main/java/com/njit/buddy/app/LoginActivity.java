@@ -71,6 +71,14 @@ public class LoginActivity extends Activity {
                 gotoRegisterPage();
             }
         });
+
+        String email = getIntent().getStringExtra("email");
+        String password = getIntent().getStringExtra("password");
+        if (email != null && password != null) {
+            m_email.setText(email);
+            m_password.setText(password);
+            attemptLogin(email, password);
+        }
     }
 
     public void gotoRegisterPage() {
