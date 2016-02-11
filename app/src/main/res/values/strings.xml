@@ -38,6 +38,7 @@
     <string name="label_flag">Flag</string>
     <string name="label_flagged">Flagged</string>
     <string name="label_comments">Comments</string>
+    <string name="label_all">All</string>
 
     <string name="msg_category">I want to…</string>
     <string name="msg_say_something">Say something…</string>
