@@ -185,6 +185,11 @@ public class LoginActivity extends Activity {
 
     public void onLoginFail(int error_code) {
         showProgress(false);
+        SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(getResources().getString(R.string.key_token));
+        editor.apply();
+
         m_password.setError(getString(R.string.error_incorrect_password));
         m_password.requestFocus();
     }

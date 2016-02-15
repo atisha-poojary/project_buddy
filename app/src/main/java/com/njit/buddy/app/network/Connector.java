@@ -10,7 +10,7 @@ import java.net.*;
  */
 public class Connector {
 
-    public static final String SERVER_ADDRESS = "http://54.174.64.238:8080";
+    public static final String SERVER_ADDRESS = "http://52.3.252.81:8080";
 
     private static final String GET = "GET";
     private static final String POST = "POST";
