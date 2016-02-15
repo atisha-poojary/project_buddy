@@ -57,51 +57,48 @@
                 android:layout_height="48dp"
                 android:id="@+id/btn_flag"
                 android:src="@drawable/ic_flag_unselected"
-                android:contentDescription="@string/label_flag" android:padding="12dp"/>
+                android:contentDescription="@string/label_flag" android:padding="@dimen/icon_margin"/>
         <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:id="@+id/btn_bell" android:src="@drawable/ic_bell_unselected"
-                android:contentDescription="@string/label_bell" android:padding="12dp"/>
+                android:contentDescription="@string/label_bell" android:padding="@dimen/icon_margin"/>
         <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp" android:padding="@dimen/icon_margin" android:id="@+id/btn_comment">
+            <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:id="@+id/icon_comment" android:src="@drawable/ic_comment"
+                    />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/tv_comment_count" android:textColor="@color/notification"/>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:padding="@dimen/icon_margin" android:id="@+id/btn_hug">
+            <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:id="@+id/icon_hug" android:src="@drawable/ic_hug_unselected"
+                    />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/tv_hug_count" android:textColor="@color/notification"/>
+        </LinearLayout>
 
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_hug"
-                android:id="@+id/btn_hug"/>
-
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_undefined"
-                android:id="@+id/btn_hugged"/>
-
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:layout_gravity="right" android:id="@+id/btn_comment"
-            android:padding="@dimen/icon_margin">
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_comments"
-                android:id="@+id/label_comment"/>
-        <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/label_undefined"
-                android:id="@+id/tv_comment_count"/>
     </LinearLayout>
 
 </LinearLayout>

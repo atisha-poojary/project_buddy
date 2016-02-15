@@ -2,5 +2,6 @@
 <resources>
 
     <color name="tab_background">#FFBE4F</color>
+    <color name="notification">#B0151B</color>
 
 </resources>

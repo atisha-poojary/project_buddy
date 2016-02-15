@@ -3,8 +3,6 @@ package com.njit.buddy.app.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
 import com.njit.buddy.app.CommentActivity;
@@ -46,36 +44,14 @@ public class PostView extends RelativeLayout {
                 tryBell();
             }
         });
-        Button btn_hug = (Button) findViewById(R.id.btn_hug);
+        View btn_hug = findViewById(R.id.btn_hug);
         btn_hug.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                tryHug();
-            }
-        });
-        Button btn_hugged = (Button) findViewById(R.id.btn_hugged);
-        btn_hugged.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gotoHugActivity();
+                onHug();
             }
         });
         View btn_comment = findViewById(R.id.btn_comment);
-        btn_comment.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        v.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_MOVE:
-                        v.setBackgroundColor(Color.WHITE);
-                        break;
-                }
-                return false;
-            }
-        });
         btn_comment.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +85,7 @@ public class PostView extends RelativeLayout {
             String post_username = getPostData().getUsername();
             String content = getPostData().getContent();
             String date = new DateParser().toString(getPostData().getTimestamp());
-            int hug = getPostData().getHug();
+            int hug_count = getPostData().getHug();
             boolean flagged = getPostData().isFlagged();
             boolean belled = getPostData().isBelled();
             boolean hugged = getPostData().isHugged();
@@ -128,22 +104,26 @@ public class PostView extends RelativeLayout {
                     getResources().getDrawable(R.drawable.ic_bell_selected) :
                     getResources().getDrawable(R.drawable.ic_bell_unselected));
             //hug button
-            Button btn_hug = (Button) findViewById(R.id.btn_hug);
+            ImageView icon_hug = (ImageView) findViewById(R.id.icon_hug);
+            TextView tv_hug_count = (TextView) findViewById(R.id.tv_hug_count);
             if (local_username.equals(post_username)) {
-                btn_hug.setText("Hug");
-                btn_hug.setEnabled(false);
+                icon_hug.setImageDrawable(getResources().getDrawable(R.drawable.ic_hug_unselected));
+                tv_hug_count.setText(Integer.toString(hug_count));
             } else {
-                btn_hug.setText(hugged ? "Hugged" : "Hug");
+                if (hugged) {
+                    icon_hug.setImageDrawable(getResources().getDrawable(R.drawable.ic_hug_selected));
+                } else {
+                    icon_hug.setImageDrawable(getResources().getDrawable(R.drawable.ic_hug_unselected));
+                }
             }
-            //hugged button
-            Button btn_hugged = (Button) findViewById(R.id.btn_hugged);
-            if (local_username.equals(post_username)) {
-                btn_hugged.setText(Integer.toString(hug));
-            } else {
-                btn_hugged.setText("-");
-            }
-            //for test
-            ((TextView) findViewById(R.id.tv_comment_count)).setText("[0]");
+        }
+    }
+
+    private void onHug() {
+        if (getPostData().getUsername().equals(getLocalUsername())) {
+            gotoHugActivity();
+        } else {
+            tryHug();
         }
     }
 
