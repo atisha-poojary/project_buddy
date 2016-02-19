@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I Accept"
+        android:id="@+id/accept"
+        android:layout_marginLeft="59dp"
+        android:layout_marginStart="59dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="133dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I Reject"
+        android:id="@+id/reject"
+        android:layout_marginLeft="79dp"
+        android:layout_marginStart="79dp"
+        android:layout_alignTop="@id/accept"
+        android:layout_toRightOf="@+id/accept"
+        android:layout_toEndOf="@+id/accept" />
+
+
+    <ScrollView android:layout_height="30dp"
+        android:layout_width="match_parent"
+        android:layout_alignBottom="@+id/tv1"
+        android:layout_alignTop="@+id/tv1"
+        android:id="@+id/scrollView2">
+
+    </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="16sp"
+        android:text="The Buddy application will be used as a supportive tool for students and/or faculty. By accepting to the terms and conditions for the use of the Buddy application, information following the new account process, will be protected and used only under research purposes within the Social Interactions Lab. No information will be stored or shared with a third party. Information collected in this research will only be used towards research development for future purposes. The Social Interaction Lab reserves the right for any modifying or future change for the terms of use."
+        android:id="@+id/tv1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="46dp"
+        android:layout_above="@+id/accept" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_above="@+id/tv1"
+        android:layout_alignLeft="@+id/accept"
+        android:layout_alignStart="@+id/accept" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:layout_above="@+id/scrollView2"
+        android:layout_centerHorizontal="true"
+        android:text="TERMS AND CONDITIONS" />
+</RelativeLayout>
