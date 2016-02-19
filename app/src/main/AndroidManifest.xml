@@ -33,7 +33,7 @@
         <activity
             android:name=".ConditionsActivity"
             android:label="@string/title_activity_terms"
-            android:windowSoftInputMode="adjustResize|stateVisible">
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".RegisterActivity"
