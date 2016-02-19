@@ -68,7 +68,7 @@ public class LoginActivity extends Activity {
         mEmailRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                gotoRegisterPage();
+                gotoConditionsActivity();
             }
         });
 
@@ -80,12 +80,16 @@ public class LoginActivity extends Activity {
             attemptLogin(email, password);
         }
     }
-
-    public void gotoRegisterPage() {
-        Intent intent = new Intent(this, RegisterActivity.class);
+    public void gotoConditionsActivity() {
+        Intent intent = new Intent(this, ConditionsActivity.class);
         startActivity(intent);
         finish();
     }
+   /* public void gotoRegisterPage() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }*/
 
     public void gotoBuddyPage() {
         Intent intent = new Intent(this, BuddyActivity.class);
