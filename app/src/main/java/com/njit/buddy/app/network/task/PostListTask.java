@@ -31,6 +31,7 @@ public abstract class PostListTask
             request_body.put("attention", attention);
 
             String result = Connector.executePost(Connector.SERVER_ADDRESS + "/post/list", request_body.toString());
+            System.out.println(result);
             return new JSONArray(result);
         } catch (JSONException ex) {
             Log.d("JSON", ex.toString());
@@ -54,6 +55,7 @@ public abstract class PostListTask
                             element.getInt("pid"),
                             element.getString("username"),
                             element.getString("content"),
+                            element.getInt("category"),
                             element.getLong("date_time"));
                     post.setHug(element.getInt("hug"));
                     post.setFlagged(element.getInt("flag") != 0);

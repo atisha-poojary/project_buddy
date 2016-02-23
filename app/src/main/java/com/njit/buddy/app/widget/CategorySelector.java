@@ -16,6 +16,8 @@ public class CategorySelector extends LinearLayout {
 
     private int current_index;
 
+    private CategorySelectorListener listener;
+
     public CategorySelector(Context context) {
         super(context);
         initialize();
@@ -55,6 +57,10 @@ public class CategorySelector extends LinearLayout {
         update();
     }
 
+    public void setCategorySelectorListener(CategorySelectorListener listener) {
+        this.listener = listener;
+    }
+
     private void onPreviousButtonClicked() {
         if (current_index > 0) {
             current_index--;
@@ -76,10 +82,17 @@ public class CategorySelector extends LinearLayout {
     public void update() {
         TextView text_category = (TextView) findViewById(R.id.text_categoty);
         text_category.setText(content[current_index]);
+        fireCategoryChangeEvent();
     }
 
     public int getCurrentCategoryIndex() {
         return current_index - 1;
+    }
+
+    private void fireCategoryChangeEvent() {
+        if(listener != null) {
+            listener.onSelectedCategoryChange();
+        }
     }
 
 }

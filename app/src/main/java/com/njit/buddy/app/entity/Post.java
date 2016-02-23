@@ -8,6 +8,7 @@ public class Post {
     private final int id;
     private final String username;
     private final String content;
+    private final int category;
     private final long timestamp;
 
     private int hug;
@@ -16,10 +17,11 @@ public class Post {
     private boolean belled;
     private boolean hugged;
 
-    public Post(int id, String username, String content, long timestamp) {
+    public Post(int id, String username, String content, int category, long timestamp) {
         this.id = id;
         this.username = username;
         this.content = content;
+        this.category = category;
         this.timestamp = timestamp;
     }
 
@@ -33,6 +35,10 @@ public class Post {
 
     public String getContent() {
         return content;
+    }
+
+    public int getCategory() {
+        return category;
     }
 
     public long getTimestamp() {

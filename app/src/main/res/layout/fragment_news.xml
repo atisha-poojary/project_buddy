@@ -8,7 +8,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/icon_margin"
-            android:paddingBottom="@dimen/icon_margin">
+            android:paddingBottom="@dimen/icon_margin"
+            android:id="@+id/category_selector">
     </com.njit.buddy.app.widget.CategorySelector>
 
     <android.support.v4.widget.SwipeRefreshLayout

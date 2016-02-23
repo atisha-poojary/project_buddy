@@ -15,22 +15,22 @@ import com.njit.buddy.app.entity.Post;
 import com.njit.buddy.app.network.task.PostListTask;
 import com.njit.buddy.app.network.task.PostCreateTask;
 import com.njit.buddy.app.util.Log;
-import com.njit.buddy.app.widget.PostScrollListener;
-import com.njit.buddy.app.widget.PostScrollView;
-import com.njit.buddy.app.widget.PostView;
+import com.njit.buddy.app.widget.*;
 
 import java.util.ArrayList;
 
 /**
  * @author toyknight 8/15/2015.
  */
-public class NewsFragment extends Fragment {
+public class NewsFragment extends Fragment implements CategorySelectorListener {
 
     private SwipeRefreshLayout swipe_container;
 
     private AlertDialog category_list;
     private AlertDialog post_dialog;
     private EditText content_input;
+
+    private CategorySelector category_selector;
 
     private int selected_category;
 
@@ -65,6 +65,9 @@ public class NewsFragment extends Fragment {
                 tryReadMorePosts();
             }
         });
+
+        category_selector = (CategorySelector) getActivity().findViewById(R.id.category_selector);
+        category_selector.setCategorySelectorListener(this);
     }
 
     private void createDialogs() {
@@ -163,20 +166,30 @@ public class NewsFragment extends Fragment {
     }
 
     public void setPostList(ArrayList<Post> post_list) {
+        int category = category_selector.getCurrentCategoryIndex();
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.news_layout);
         layout.removeAllViews();
         for (Post post : post_list) {
             PostView post_view = new PostView(getActivity(), post);
-            layout.addView(post_view);
+            if (category == -1 || post.getCategory() == category) {
+                layout.addView(post_view);
+            }
         }
     }
 
     public void addPostList(ArrayList<Post> post_list) {
+        int category = category_selector.getCurrentCategoryIndex();
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.news_layout);
         for (Post post : post_list) {
             PostView post_view = new PostView(getActivity(), post);
-            layout.addView(post_view);
+            if (category == -1 || post.getCategory() == category) {
+                layout.addView(post_view);
+            }
         }
     }
 
+    @Override
+    public void onSelectedCategoryChange() {
+        tryRefreshNewsList();
+    }
 }
