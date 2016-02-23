@@ -55,5 +55,6 @@
     <string name="key_tab">tab</string>
     <string name="key_token">token</string>
     <string name="key_uid">uid</string>
+    <string name="key_first_time">first_time</string>
 
 </resources>

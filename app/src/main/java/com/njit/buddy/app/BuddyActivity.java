@@ -41,6 +41,23 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
         initComponents();
 
         setTabSelection(TAB_NEWS);
+
+        if(isFirstTimeUsing()) {
+            gotoGuideActivity();
+        }
+    }
+
+    private void gotoGuideActivity() {
+        SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(getResources().getString(R.string.key_first_time), true);
+        editor.apply();
+        //goto guide activity
+    }
+
+    private boolean isFirstTimeUsing() {
+        SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
+        return preferences.getBoolean(getResources().getString(R.string.key_first_time), true);
     }
 
     @Override
