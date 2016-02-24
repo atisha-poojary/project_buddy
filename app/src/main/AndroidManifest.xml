@@ -41,6 +41,11 @@
                 android:windowSoftInputMode="adjustResize|stateVisible">
         </activity>
         <activity
+            android:name=".IntroductionActivity"
+            android:label="@string/title_activity_intro"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+        <activity
                 android:name=".AccountActivity"
                 android:label="@string/title_activity_account">
         </activity>

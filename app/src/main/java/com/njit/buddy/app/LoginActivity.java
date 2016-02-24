@@ -91,12 +91,18 @@ public class LoginActivity extends Activity {
         finish();
     }*/
 
-    public void gotoBuddyPage() {
+    public void gotoIntroductionsActivity() {
+        Intent intent = new Intent(this, IntroductionActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    /*public void gotoBuddyPage() {
         Intent intent = new Intent(this, BuddyActivity.class);
         startActivity(intent);
         showProgress(false);
         finish();
-    }
+    }*/
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -184,7 +190,8 @@ public class LoginActivity extends Activity {
         editor.putString(getResources().getString(R.string.key_username), profile.getUsername());
         editor.putString(getResources().getString(R.string.key_username), profile.getUsername());
         editor.apply();
-        gotoBuddyPage();
+        //gotoBuddyPage();
+        gotoIntroductionsActivity();
     }
 
     public void onLoginFail(int error_code) {

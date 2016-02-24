@@ -11,7 +11,7 @@
     <string name="title_activity_setting">Setting</string>
     <string name="title_activity_hug">Hug</string>
     <string name="title_activity_comment">Comments</string>
-
+    <string name="title_activity_intro">Introduction</string>
     <string name="label_add_post">Add Post</string>
     <string name="label_account">Account</string>
     <string name="label_profile">Profile</string>
