@@ -3,6 +3,7 @@ package com.njit.buddy.app;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -43,16 +44,17 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
         setTabSelection(TAB_NEWS);
 
         if(isFirstTimeUsing()) {
-            gotoGuideActivity();
+            gotoIntroductionActivity();
         }
     }
 
-    private void gotoGuideActivity() {
+    private void gotoIntroductionActivity() {
         SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(getResources().getString(R.string.key_first_time), true);
         editor.apply();
-        //goto guide activity
+        Intent intent = new Intent(this, IntroductionActivity.class);
+        startActivity(intent);
     }
 
     private boolean isFirstTimeUsing() {
