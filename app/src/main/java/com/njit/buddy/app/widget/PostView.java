@@ -111,11 +111,9 @@ public class PostView extends RelativeLayout {
                 icon_hug.setImageDrawable(getResources().getDrawable(R.drawable.ic_hug_unselected));
                 tv_hug_count.setText(Integer.toString(hug_count));
             } else {
-                if (hugged) {
-                    icon_hug.setImageDrawable(getResources().getDrawable(R.drawable.ic_hug_selected));
-                } else {
-                    icon_hug.setImageDrawable(getResources().getDrawable(R.drawable.ic_hug_unselected));
-                }
+                icon_hug.setImageDrawable(hugged ?
+                        getResources().getDrawable(R.drawable.ic_hug_selected) :
+                        getResources().getDrawable(R.drawable.ic_hug_unselected));
             }
             View btn_comment = findViewById(R.id.btn_comment);
             btn_comment.setVisibility(getPostData().getCategory() == Post.ASK ? View.VISIBLE : View.INVISIBLE);
