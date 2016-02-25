@@ -92,10 +92,10 @@ public class LoginActivity extends Activity {
     }*/
 
 //    public void gotoIntroductionsActivity() {
-//        Intent intent = new Intent(this, IntroductionActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
+  //      Intent intent = new Intent(this, IntroductionActivity.class);
+    //    startActivity(intent);
+    //    finish();
+    //}
 
     public void gotoBuddyPage() {
         Intent intent = new Intent(this, BuddyActivity.class);
