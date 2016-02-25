@@ -5,6 +5,13 @@ package com.njit.buddy.app.entity;
  */
 public class Post {
 
+    public static final int CONFESS = 0;
+    public static final int ASK = 1;
+    public static final int VENT = 2;
+    public static final int LAUGH = 3;
+    public static final int ENCOURAGE = 4;
+    public static final int ANNOUNCE = 5;
+
     private final int id;
     private final String username;
     private final String content;

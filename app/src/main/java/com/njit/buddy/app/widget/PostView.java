@@ -103,6 +103,7 @@ public class PostView extends RelativeLayout {
             btn_bell.setImageDrawable(belled ?
                     getResources().getDrawable(R.drawable.ic_bell_selected) :
                     getResources().getDrawable(R.drawable.ic_bell_unselected));
+            btn_bell.setVisibility(getPostData().getCategory() == Post.ASK ? View.INVISIBLE : View.VISIBLE);
             //hug button
             ImageView icon_hug = (ImageView) findViewById(R.id.icon_hug);
             TextView tv_hug_count = (TextView) findViewById(R.id.tv_hug_count);
@@ -116,6 +117,8 @@ public class PostView extends RelativeLayout {
                     icon_hug.setImageDrawable(getResources().getDrawable(R.drawable.ic_hug_unselected));
                 }
             }
+            View btn_comment = findViewById(R.id.btn_comment);
+            btn_comment.setVisibility(getPostData().getCategory() == Post.ASK ? View.VISIBLE : View.INVISIBLE);
         }
     }
 
