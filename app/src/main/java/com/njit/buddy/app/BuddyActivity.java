@@ -51,7 +51,7 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
     private void gotoIntroductionActivity() {
         SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(getResources().getString(R.string.key_first_time), true);
+        editor.putBoolean(getResources().getString(R.string.key_first_time), false);
         editor.apply();
         Intent intent = new Intent(this, IntroductionActivity.class);
         startActivity(intent);
