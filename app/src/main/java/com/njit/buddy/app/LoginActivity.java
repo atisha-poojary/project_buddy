@@ -16,8 +16,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.njit.buddy.app.entity.Authorization;
 import com.njit.buddy.app.network.Connector;
+import com.njit.buddy.app.network.ResponseCode;
 import com.njit.buddy.app.network.task.LoginTask;
 import com.njit.buddy.app.util.EmailValidator;
 
@@ -180,14 +182,28 @@ public class LoginActivity extends Activity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove(getResources().getString(R.string.key_authorization));
         editor.apply();
-
-        m_password.setError(getString(R.string.error_incorrect_password));
-        m_password.requestFocus();
+        switch (error_code) {
+            case ResponseCode.PASSWORD_OR_EMAIL_MISS_MATCH:
+                m_password.setError(getString(R.string.error_incorrect_password));
+                m_password.requestFocus();
+                break;
+            case ResponseCode.BAD_REQUEST:
+            case ResponseCode.SERVER_ERROR:
+                showToast("Oops, it seems the server was taking a nap :(");
+                break;
+            default:
+                showToast("A mysterious force brought away your login request...");
+        }
     }
 
     private boolean isEmailValid(String email) {
         EmailValidator validator = new EmailValidator();
         return validator.validate(email);
+    }
+
+    private void showToast(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     /**
