@@ -19,6 +19,8 @@ import java.util.ArrayList;
  */
 public class HugActivity extends AppCompatActivity {
 
+    private int current_page;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class HugActivity extends AppCompatActivity {
     }
 
     public void tryUpdateHugList(int pid) {
+        current_page = 0;
         HugListTask task = new HugListTask() {
             @Override
             public void onSuccess(ArrayList<Hug> result) {
@@ -53,7 +56,7 @@ public class HugActivity extends AppCompatActivity {
                 Log.error("List Hug", error_code);
             }
         };
-        task.execute(pid, 0, 10);
+        task.execute(pid, current_page);
     }
 
     public void updateHugList(ArrayList<Hug> hug_list) {

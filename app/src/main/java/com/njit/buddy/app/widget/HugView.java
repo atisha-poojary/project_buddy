@@ -32,6 +32,7 @@ public class HugView extends LinearLayout {
     public void updateView() {
         TextView tv_username = (TextView) findViewById(R.id.tv_username);
         tv_username.setText(getHugData().getUsername());
+        findViewById(R.id.btn_hug_back).setVisibility(INVISIBLE);
     }
 
 }

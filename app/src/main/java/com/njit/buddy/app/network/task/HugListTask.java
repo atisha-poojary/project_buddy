@@ -20,16 +20,14 @@ public abstract class HugListTask extends AsyncTask<Integer, Void, JSONObject> i
     @Override
     protected JSONObject doInBackground(Integer... params) {
         Integer pid = params[0];
-        Integer start = params[1];
-        Integer count = params[2];
+        Integer page = params[1];
 
         try {
             JSONObject request_body = new JSONObject();
             request_body.put("pid", pid);
-            request_body.put("start", start);
-            request_body.put("count", count);
+            request_body.put("page", page);
 
-            String result = Connector.executePost(Connector.SERVER_ADDRESS + "/hug/list", request_body.toString());
+            String result = Connector.executePost(Connector.SERVER_ADDRESS + "/post/hug/list", request_body.toString());
             return new JSONObject(result);
         } catch (JSONException ex) {
             Log.d("JSON", ex.toString());
@@ -45,18 +43,22 @@ public abstract class HugListTask extends AsyncTask<Integer, Void, JSONObject> i
         if (result == null) {
             onFail(ResponseCode.SERVER_ERROR);
         } else {
-//            ArrayList<Hug> hug_list = new ArrayList<Hug>();
-//            for (int i = 0; i < result.length(); i++) {
-//                try {
-//                    JSONObject element = result.getJSONObject(i);
-//                    Hug hug = new Hug(element.getInt("uid"), element.getString("username"));
-//                    hug.setHuggedBack(element.getInt("hug_back") != 0);
-//                    hug_list.add(hug);
-//                } catch (JSONException ex) {
-//                    Log.d("Error", ex.toString());
-//                }
-//            }
-            onSuccess(null);
+            try {
+                int response_code = result.getInt("response_code");
+                if (response_code == ResponseCode.BUDDY_OK) {
+                    JSONArray hugs = result.getJSONArray("hugs");
+                    ArrayList<Hug> hug_list = new ArrayList<Hug>();
+                    for (int i = 0; i < hugs.length(); i++) {
+                        JSONObject hug = hugs.getJSONObject(i);
+                        hug_list.add(new Hug(hug.getInt("uid"), hug.getString("username")));
+                    }
+                    onSuccess(hug_list);
+                } else {
+                    onFail(response_code);
+                }
+            } catch (JSONException ex) {
+                onFail(ResponseCode.SERVER_ERROR);
+            }
         }
     }
 
