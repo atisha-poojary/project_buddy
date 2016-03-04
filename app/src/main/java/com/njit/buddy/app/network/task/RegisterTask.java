@@ -3,7 +3,7 @@ package com.njit.buddy.app.network.task;
 import android.os.AsyncTask;
 import android.util.Log;
 import com.njit.buddy.app.network.Connector;
-import com.njit.buddy.app.network.ResponseValue;
+import com.njit.buddy.app.network.ResponseCode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,19 +28,19 @@ public abstract class RegisterTask extends AsyncTask<String, Void, Integer> impl
 
             String result = Connector.executePost(Connector.SERVER_ADDRESS + "/register", request_body.toString());
             JSONObject response = new JSONObject(result);
-            return response.getInt("responsevalue");
+            return response.getInt("response_code");
         } catch (JSONException ex) {
             Log.d("Login", ex.toString());
-            return ResponseValue.BUDDY_BAD_REQUEST;
+            return ResponseCode.SERVER_ERROR;
         } catch (IOException ex) {
             Log.d("Login", ex.toString());
-            return ResponseValue.BUDDY_BAD_REQUEST;
+            return ResponseCode.SERVER_ERROR;
         }
     }
 
     @Override
-    protected final void onPostExecute(final Integer response_code) {
-        if (response_code == ResponseValue.BUDDY_OK) {
+    protected final void onPostExecute(Integer response_code) {
+        if (response_code == ResponseCode.BUDDY_OK) {
             onSuccess(response_code);
         } else {
             onFail(response_code);

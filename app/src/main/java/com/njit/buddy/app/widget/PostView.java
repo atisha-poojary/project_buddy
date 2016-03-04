@@ -65,9 +65,9 @@ public class PostView extends RelativeLayout {
         return post_data;
     }
 
-    private String getLocalUsername() {
+    private int getUID() {
         SharedPreferences preferences = getContext().getSharedPreferences("buddy", Context.MODE_PRIVATE);
-        return preferences.getString(getResources().getString(R.string.key_username), "");
+        return preferences.getInt(getResources().getString(R.string.key_uid), 0);
     }
 
     public void setBellVisible(boolean visible) {
@@ -81,11 +81,10 @@ public class PostView extends RelativeLayout {
 
     public void updateView() {
         if (getPostData() != null) {
-            String local_username = getLocalUsername();
             String post_username = getPostData().getUsername();
             String content = getPostData().getContent();
             String date = new DateParser().toString(getPostData().getTimestamp());
-            int hug_count = getPostData().getHug();
+            int hug_count = getPostData().getHugs();
             boolean flagged = getPostData().isFlagged();
             boolean belled = getPostData().isBelled();
             boolean hugged = getPostData().isHugged();
@@ -107,7 +106,7 @@ public class PostView extends RelativeLayout {
             //hug button
             ImageView icon_hug = (ImageView) findViewById(R.id.icon_hug);
             TextView tv_hug_count = (TextView) findViewById(R.id.tv_hug_count);
-            if (local_username.equals(post_username)) {
+            if (getPostData().getUID() == getUID()) {
                 icon_hug.setImageDrawable(getResources().getDrawable(R.drawable.ic_hug_unselected));
                 tv_hug_count.setText(Integer.toString(hug_count));
             } else {
@@ -121,7 +120,7 @@ public class PostView extends RelativeLayout {
     }
 
     private void onHug() {
-        if (getPostData().getUsername().equals(getLocalUsername())) {
+        if (getPostData().getUID() == getUID()) {
             gotoHugActivity();
         } else {
             tryHug();
@@ -129,13 +128,9 @@ public class PostView extends RelativeLayout {
     }
 
     public void gotoHugActivity() {
-        String local_username = getLocalUsername();
-        String post_username = getPostData().getUsername();
-        if (local_username.equals(post_username)) {
-            Intent intent = new Intent(getContext(), HugActivity.class);
-            intent.putExtra("pid", getPostData().getPID());
-            getContext().startActivity(intent);
-        }
+        Intent intent = new Intent(getContext(), HugActivity.class);
+        intent.putExtra("pid", getPostData().getPID());
+        getContext().startActivity(intent);
     }
 
     public void gotoCommentActivity() {
@@ -180,9 +175,9 @@ public class PostView extends RelativeLayout {
             @Override
             public void onSuccess(Integer result) {
                 if (getPostData().isHugged()) {
-                    getPostData().setHug(getPostData().getHug() - 1);
+                    getPostData().setHugs(getPostData().getHugs() - 1);
                 } else {
-                    getPostData().setHug(getPostData().getHug() + 1);
+                    getPostData().setHugs(getPostData().getHugs() + 1);
                 }
                 getPostData().setHugged(!getPostData().isHugged());
                 updateView();

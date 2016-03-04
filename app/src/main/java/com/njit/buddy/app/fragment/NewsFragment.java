@@ -144,7 +144,7 @@ public class NewsFragment extends Fragment implements CategorySelectorListener {
                 Log.error("News", error_code);
             }
         };
-        task.execute(current_page, 10, 0);
+        task.execute(current_page, getSelectedCategory(), 0);
     }
 
     public void tryReadMorePosts() {
@@ -162,29 +162,31 @@ public class NewsFragment extends Fragment implements CategorySelectorListener {
                 Log.error("News", error_code);
             }
         };
-        task.execute(++current_page, 10, 0);
+        task.execute(++current_page, getSelectedCategory(), 0);
     }
 
     public void setPostList(ArrayList<Post> post_list) {
-        int category = category_selector.getCurrentCategoryIndex();
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.news_layout);
         layout.removeAllViews();
         for (Post post : post_list) {
             PostView post_view = new PostView(getActivity(), post);
-            if (category == -1 || post.getCategory() == category) {
-                layout.addView(post_view);
-            }
+            layout.addView(post_view);
         }
     }
 
     public void addPostList(ArrayList<Post> post_list) {
-        int category = category_selector.getCurrentCategoryIndex();
         LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.news_layout);
         for (Post post : post_list) {
             PostView post_view = new PostView(getActivity(), post);
-            if (category == -1 || post.getCategory() == category) {
-                layout.addView(post_view);
-            }
+            layout.addView(post_view);
+        }
+    }
+
+    private int getSelectedCategory() {
+        if (category_selector == null) {
+            return -1;
+        } else {
+            return category_selector.getCurrentCategoryIndex();
         }
     }
 

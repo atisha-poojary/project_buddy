@@ -48,11 +48,11 @@ public class AccountActivity extends AppCompatActivity {
     private void logout() {
         SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.remove(getResources().getString(R.string.key_token));
+        editor.remove(getResources().getString(R.string.key_authorization));
         editor.remove(getResources().getString(R.string.key_tab));
         editor.remove(getResources().getString(R.string.key_uid));
         editor.apply();
-        Connector.setAuthenticationToken(null);
+        Connector.setAuthorization(null);
         Intent intent = new Intent(getBaseContext(), LoginActivity.class);
         startActivity(intent);
         finish();

@@ -65,7 +65,7 @@ public class AttentionFragment extends Fragment {
                 Log.d("Attention", "Error code " + error_code);
             }
         };
-        task.execute(current_page, 10, 1);
+        task.execute(current_page, -1, 1);
     }
 
     public void tryReadMorePosts() {
@@ -82,7 +82,7 @@ public class AttentionFragment extends Fragment {
                 Log.d("Attention", "Error code " + error_code);
             }
         };
-        task.execute(++current_page, 10, 1);
+        task.execute(++current_page, -1, 1);
 
     }
 

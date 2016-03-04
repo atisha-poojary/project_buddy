@@ -12,20 +12,22 @@ public class Post {
     public static final int ENCOURAGE = 4;
     public static final int ANNOUNCE = 5;
 
-    private final int id;
+    private final int pid;
+    private final int uid;
     private final String username;
     private final String content;
     private final int category;
     private final long timestamp;
 
-    private int hug;
+    private int hugs;
 
     private boolean flagged;
     private boolean belled;
     private boolean hugged;
 
-    public Post(int id, String username, String content, int category, long timestamp) {
-        this.id = id;
+    public Post(int pid, int uid, String username, String content, int category, long timestamp) {
+        this.pid = pid;
+        this.uid = uid;
         this.username = username;
         this.content = content;
         this.category = category;
@@ -33,7 +35,11 @@ public class Post {
     }
 
     public int getPID() {
-        return id;
+        return pid;
+    }
+
+    public int getUID() {
+        return uid;
     }
 
     public String getUsername() {
@@ -52,12 +58,12 @@ public class Post {
         return timestamp;
     }
 
-    public void setHug(int hug) {
-        this.hug = hug;
+    public void setHugs(int hugs) {
+        this.hugs = hugs;
     }
 
-    public int getHug() {
-        return hug;
+    public int getHugs() {
+        return hugs;
     }
 
     public void setFlagged(boolean b) {

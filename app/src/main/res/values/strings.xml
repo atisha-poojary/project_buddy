@@ -53,7 +53,7 @@
     <string name="key_username">username</string>
     <string name="key_password">password</string>
     <string name="key_tab">tab</string>
-    <string name="key_token">token</string>
+    <string name="key_authorization">authorization</string>
     <string name="key_uid">uid</string>
     <string name="key_first_time">first_time</string>
 

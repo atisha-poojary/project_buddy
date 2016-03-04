@@ -31,21 +31,21 @@ public class WelcomeActivity extends Activity {
     }
 
     private void initialize() {
-        String token = getToken();
-        if (token == null) {
+        String authorization = getAuthorization();
+        if (authorization == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         } else {
-            Connector.setAuthenticationToken(token);
+            Connector.setAuthorization(authorization);
             Intent intent = new Intent(this, BuddyActivity.class);
             startActivity(intent);
         }
         finish();
     }
 
-    private String getToken() {
+    private String getAuthorization() {
         SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
-        return preferences.getString(getResources().getString(R.string.key_token), null);
+        return preferences.getString(getResources().getString(R.string.key_authorization), null);
     }
 
 }

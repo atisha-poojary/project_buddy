@@ -10,50 +10,17 @@ import java.net.*;
  */
 public class Connector {
 
-    public static final String SERVER_ADDRESS = "http://52.3.252.81:8080";
+    public static final String SERVER_ADDRESS = "http://10.200.132.49:8080";
 
-    private static final String GET = "GET";
-    private static final String POST = "POST";
     private static final String DEBUG_TAG = "Network";
 
-    private static String token;
+    private static String authorization;
 
     private Connector() {
     }
 
-    public static void setAuthenticationToken(String token) {
-        Connector.token = token;
-    }
-
-    /**
-     * Send a GET request.
-     *
-     * @param url     the request url
-     * @param content the request body
-     * @return the response content
-     * @throws IOException
-     */
-    public static String executeGet(String url, String content, String token) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setConnectTimeout(15000);
-        connection.setReadTimeout(10000);
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Accept", "*/*");
-        connection.setRequestMethod(GET);
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
-        connection.connect();
-
-        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-        writer.write(content);
-        writer.flush();
-
-        int code = connection.getResponseCode();
-        Log.d(DEBUG_TAG, "The response code for [GET] '" + url + "' is " + code);
-
-        String response = getContent(connection);
-        connection.disconnect();
-        return response;
+    public static void setAuthorization(String authorization) {
+        Connector.authorization = authorization;
     }
 
     /**
@@ -69,9 +36,9 @@ public class Connector {
         connection.setConnectTimeout(15000);
         connection.setReadTimeout(10000);
         connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Accept", "*/*");
-        connection.setRequestProperty("X-Auth-Token", token);
-        connection.setRequestMethod(POST);
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestProperty("Authorization", authorization);
+        connection.setRequestMethod("POST");
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.connect();

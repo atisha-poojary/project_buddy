@@ -16,10 +16,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.njit.buddy.app.entity.Profile;
+import com.njit.buddy.app.entity.Authorization;
 import com.njit.buddy.app.network.Connector;
 import com.njit.buddy.app.network.task.LoginTask;
-import com.njit.buddy.app.network.task.ProfileViewTask;
 import com.njit.buddy.app.util.EmailValidator;
 
 /**
@@ -80,6 +79,7 @@ public class LoginActivity extends Activity {
             attemptLogin(email, password);
         }
     }
+
     public void gotoConditionsActivity() {
         Intent intent = new Intent(this, ConditionsActivity.class);
         startActivity(intent);
@@ -92,7 +92,7 @@ public class LoginActivity extends Activity {
     }*/
 
 //    public void gotoIntroductionsActivity() {
-  //      Intent intent = new Intent(this, IntroductionActivity.class);
+    //      Intent intent = new Intent(this, IntroductionActivity.class);
     //    startActivity(intent);
     //    finish();
     //}
@@ -153,8 +153,8 @@ public class LoginActivity extends Activity {
         showProgress(true);
         new LoginTask() {
             @Override
-            public void onSuccess(String token) {
-                LoginActivity.this.onLoginSuccess(token);
+            public void onSuccess(Authorization authorization) {
+                LoginActivity.this.onLoginSuccess(authorization);
             }
 
             @Override
@@ -164,31 +164,12 @@ public class LoginActivity extends Activity {
         }.execute(email, password);
     }
 
-    public void onLoginSuccess(String token) {
-        Connector.setAuthenticationToken(token);
+    public void onLoginSuccess(Authorization authorization) {
+        Connector.setAuthorization(authorization.getAuthorization());
         SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(getResources().getString(R.string.key_token), token);
-        editor.apply();
-        ProfileViewTask task = new ProfileViewTask() {
-            @Override
-            public void onSuccess(Profile result) {
-                onProfileSuccess(result);
-            }
-
-            @Override
-            public void onFail(int error_code) {
-                onLoginFail(error_code);
-            }
-        };
-        task.execute(0);
-    }
-
-    public void onProfileSuccess(Profile profile) {
-        SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(getResources().getString(R.string.key_username), profile.getUsername());
-        editor.putString(getResources().getString(R.string.key_username), profile.getUsername());
+        editor.putString(getResources().getString(R.string.key_authorization), authorization.getAuthorization());
+        editor.putInt(getResources().getString(R.string.key_uid), authorization.getUID());
         editor.apply();
         gotoBuddyPage();
     }
@@ -197,7 +178,7 @@ public class LoginActivity extends Activity {
         showProgress(false);
         SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.remove(getResources().getString(R.string.key_token));
+        editor.remove(getResources().getString(R.string.key_authorization));
         editor.apply();
 
         m_password.setError(getString(R.string.error_incorrect_password));

@@ -2,8 +2,9 @@ package com.njit.buddy.app.network.task;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import com.njit.buddy.app.entity.Authorization;
 import com.njit.buddy.app.network.Connector;
-import com.njit.buddy.app.network.ResponseValue;
+import com.njit.buddy.app.network.ResponseCode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,7 +13,7 @@ import java.io.IOException;
 /**
  * @author toyknight 10/22/2015.
  */
-public abstract class LoginTask extends AsyncTask<String, Void, JSONObject> implements ResponseHandler<String> {
+public abstract class LoginTask extends AsyncTask<String, Void, JSONObject> implements ResponseHandler<Authorization> {
 
     @Override
     protected JSONObject doInBackground(String... params) {
@@ -38,20 +39,21 @@ public abstract class LoginTask extends AsyncTask<String, Void, JSONObject> impl
     @Override
     protected final void onPostExecute(JSONObject response) {
         if (response == null) {
-            onFail(ResponseValue.BUDDY_BAD_REQUEST);
+            onFail(ResponseCode.SERVER_ERROR);
         } else {
             try {
-                int response_value = response.getInt("responsevalue");
-                if (response_value == ResponseValue.BUDDY_OK) {
-                    String token = response.getString("token");
-                    onSuccess(token);
+                int response_code = response.getInt("response_code");
+                if (response_code == ResponseCode.BUDDY_OK) {
+                    int uid = response.getInt("uid");
+                    String authorization = response.getString("authorization");
+                    onSuccess(new Authorization(uid, authorization));
                 } else {
-                    Log.d("Login", "Error code: " + response_value);
-                    onFail(response_value);
+                    Log.d("Login", "Error code: " + response_code);
+                    onFail(response_code);
                 }
             } catch (JSONException ex) {
                 Log.d("Login", ex.toString());
-                onFail(ResponseValue.BUDDY_BAD_REQUEST);
+                onFail(ResponseCode.SERVER_ERROR);
             }
         }
     }
