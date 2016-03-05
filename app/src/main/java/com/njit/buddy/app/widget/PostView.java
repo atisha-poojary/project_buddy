@@ -1,5 +1,6 @@
 package com.njit.buddy.app.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.*;
 import com.njit.buddy.app.CommentActivity;
 import com.njit.buddy.app.HugActivity;
+import com.njit.buddy.app.ProfileActivity;
 import com.njit.buddy.app.R;
 import com.njit.buddy.app.entity.Post;
 import com.njit.buddy.app.network.task.BellTask;
@@ -56,6 +58,13 @@ public class PostView extends RelativeLayout {
             @Override
             public void onClick(View v) {
                 gotoCommentActivity();
+            }
+        });
+        View tv_username = findViewById(R.id.tv_username);
+        tv_username.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoProfileActivity();
             }
         });
         updateView();
@@ -136,6 +145,13 @@ public class PostView extends RelativeLayout {
     public void gotoCommentActivity() {
         Intent intent = new Intent(getContext(), CommentActivity.class);
         getContext().startActivity(intent);
+    }
+
+    public void gotoProfileActivity() {
+        Intent intent = new Intent(getContext(), ProfileActivity.class);
+        intent.putExtra(getContext().getString(R.string.key_uid), getPostData().getUID());
+        getContext().startActivity(intent);
+        ((Activity)getContext()).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 
     public void tryFlag() {

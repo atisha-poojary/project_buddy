@@ -10,4 +10,16 @@
         <item>Announce</item>
     </array>
 
+    <array name="gender">
+        <item>undefined</item>
+    </array>
+
+    <array name="sexuality">
+        <item>undefined</item>
+    </array>
+
+    <array name="race">
+        <item>undefined</item>
+    </array>
+
 </resources>

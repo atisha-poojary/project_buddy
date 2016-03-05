@@ -37,19 +37,19 @@
                             android:src="@drawable/avatar_default"/>
 
                     <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="username"
-                            android:id="@+id/tv_username"/>
+                            android:text="@string/label_undefined"
+                            android:id="@+id/tv_username" android:gravity="center"/>
 
                 </LinearLayout>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Here displays the introduction"
-                        android:id="@+id/tv_introduction"
+                        android:text="@string/label_undefined"
+                        android:id="@+id/tv_description"
                         android:layout_gravity="center_vertical"
                         />
 
@@ -77,7 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="01/01/1960"
+                        android:text="@string/label_undefined"
                         android:id="@+id/tv_birthday_value"/>
             </LinearLayout>
 
@@ -95,8 +95,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/label_sex"
-                        android:id="@+id/tv_sex"
+                        android:text="@string/label_gender"
+                        android:id="@+id/tv_gender"
                         android:layout_weight="1"/>
 
                 <TextView
@@ -104,7 +104,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/label_undefined"
-                        android:id="@+id/tv_sex_value"/>
+                        android:id="@+id/tv_gender_value"/>
 
             </LinearLayout>
 
@@ -157,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/label_undefined"
-                        android:id="@+id/tv_rave_value"/>
+                        android:id="@+id/tv_race_value"/>
             </LinearLayout>
 
         </LinearLayout>

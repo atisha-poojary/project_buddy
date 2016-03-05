@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/scrollView"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:id="@+id/swipe_container_hugs">
 
-        <LinearLayout
-                android:orientation="vertical"
+        <com.njit.buddy.app.widget.BuddyScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/hug_list_layout">
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="match_parent"
+                android:id="@+id/scroll_view_hugs"
+                android:fillViewport="false">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/hug_list_layout">
+            </LinearLayout>
+        </com.njit.buddy.app.widget.BuddyScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </RelativeLayout>

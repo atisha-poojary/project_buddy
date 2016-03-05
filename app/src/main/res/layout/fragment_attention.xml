@@ -5,7 +5,7 @@
         android:layout_height="match_parent"
         android:id="@+id/swipe_container_attention">
 
-    <com.njit.buddy.app.widget.PostScrollView
+    <com.njit.buddy.app.widget.BuddyScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/scroll_view_attention"
@@ -18,9 +18,9 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/attention_layout">
+                android:id="@+id/attention_layout" android:paddingTop="@dimen/icon_margin">
         </LinearLayout>
 
-    </com.njit.buddy.app.widget.PostScrollView>
+    </com.njit.buddy.app.widget.BuddyScrollView>
 
 </android.support.v4.widget.SwipeRefreshLayout>

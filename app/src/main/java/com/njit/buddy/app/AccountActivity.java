@@ -39,8 +39,6 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void gotoBuddyActivity() {
-        Intent intent = new Intent(this, BuddyActivity.class);
-        startActivity(intent);
         finish();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }

@@ -62,13 +62,6 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
         return preferences.getBoolean(getResources().getString(R.string.key_first_time), true);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
-        setTabSelection(preferences.getInt(getResources().getString(R.string.key_tab), TAB_NEWS));
-    }
-
     @SuppressWarnings("ResourceType")
     private void initComponents() {
         if (getSupportActionBar() != null) {
