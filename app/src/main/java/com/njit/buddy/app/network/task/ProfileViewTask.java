@@ -40,8 +40,19 @@ public abstract class ProfileViewTask extends AsyncTask<Integer, Void, JSONObjec
             onFail(ResponseCode.SERVER_ERROR);
         } else {
             try {
-                Profile profile = new Profile(result.getString("username"));
-                onSuccess(profile);
+                int response_code = result.getInt("response_code");
+                if (response_code == ResponseCode.BUDDY_OK) {
+                    Profile profile = new Profile();
+                    profile.setUsername(result.getString("username"));
+                    profile.setDescription(result.has("description") ? result.getString("description") : "Hidden");
+                    profile.setBirthday(result.has("birthday") ? result.getString("birthday") : "Hidden");
+                    profile.setGender(result.has("gender") ? result.getString("gender") : "Hidden");
+                    profile.setSexuality(result.has("sexuality") ? result.getString("sexuality") : "Hidden");
+                    profile.setRace(result.has("race") ? result.getString("race") : "Hidden");
+                    onSuccess(profile);
+                } else {
+                    onFail(response_code);
+                }
             } catch (JSONException ex) {
                 Log.d("Error", ex.toString());
                 onFail(ResponseCode.SERVER_ERROR);

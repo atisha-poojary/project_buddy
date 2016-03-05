@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:id="@+id/swipe_container_news">
 
-        <com.njit.buddy.app.widget.PostScrollView
+        <com.njit.buddy.app.widget.BuddyScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/scroll_view_news"
@@ -30,7 +30,7 @@
                     android:id="@+id/news_layout">
             </LinearLayout>
 
-        </com.njit.buddy.app.widget.PostScrollView>
+        </com.njit.buddy.app.widget.BuddyScrollView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

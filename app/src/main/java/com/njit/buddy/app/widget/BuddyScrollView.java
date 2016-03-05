@@ -8,23 +8,23 @@ import android.widget.ScrollView;
 /**
  * @author toyknight 2/7/2016.
  */
-public class PostScrollView extends ScrollView {
+public class BuddyScrollView extends ScrollView {
 
-    private PostScrollListener scroll_listener = null;
+    private BuddyScrollListener scroll_listener = null;
 
-    public PostScrollView(Context context) {
+    public BuddyScrollView(Context context) {
         super(context);
     }
 
-    public PostScrollView(Context context, AttributeSet attrs) {
+    public BuddyScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public PostScrollView(Context context, AttributeSet attrs, int defStyle) {
+    public BuddyScrollView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public void setScrollListener(PostScrollListener scroll_listener) {
+    public void setScrollListener(BuddyScrollListener scroll_listener) {
         this.scroll_listener = scroll_listener;
     }
 

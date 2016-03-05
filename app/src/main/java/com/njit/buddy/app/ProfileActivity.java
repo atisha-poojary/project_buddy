@@ -1,23 +1,22 @@
 package com.njit.buddy.app;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.njit.buddy.app.entity.Profile;
+import com.njit.buddy.app.network.ResponseCode;
+import com.njit.buddy.app.network.task.ProfileViewTask;
 
 /**
  * @author toyknight 8/16/2015.
  */
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private AlertDialog editor_birthday;
-    private DatePicker birthday_picker;
+    private Profile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,19 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_profile);
 
         initComponents();
-        createDialogs();
+        int uid = getIntent().getIntExtra(getString(R.string.key_uid), 0);
+        ProfileViewTask task = new ProfileViewTask() {
+            @Override
+            public void onSuccess(Profile result) {
+                onProfileLoaded(result);
+            }
+
+            @Override
+            public void onFail(int error_code) {
+                onProfileLoadingFail(error_code);
+            }
+        };
+        task.execute(uid);
     }
 
     @SuppressWarnings("ResourceType")
@@ -52,33 +63,75 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         btn_sexuality.setOnClickListener(this);
         btn_race.setOnTouchListener(btn_touch_listener);
         btn_race.setOnClickListener(this);
+
+        ((TextView) findViewById(R.id.tv_username)).setText(getString(R.string.label_loading));
+        ((TextView) findViewById(R.id.tv_description)).setText(getString(R.string.label_loading));
+        ((TextView) findViewById(R.id.tv_birthday_value)).setText(getString(R.string.label_loading));
+        ((TextView) findViewById(R.id.tv_gender_value)).setText(getString(R.string.label_loading));
+        ((TextView) findViewById(R.id.tv_sexuality_value)).setText(getString(R.string.label_loading));
+        ((TextView) findViewById(R.id.tv_race_value)).setText(getString(R.string.label_loading));
     }
 
-    private void createDialogs() {
-        AlertDialog.Builder birthday_builder = new AlertDialog.Builder(this);
-        View birthday_dialog_content = getLayoutInflater().inflate(R.layout.editor_birthday, null);
-        birthday_picker = (DatePicker) birthday_dialog_content.findViewById(R.id.birthday_picker);
-        birthday_builder.setView(birthday_dialog_content);
-        birthday_builder.setPositiveButton(getResources().getString(R.string.label_set), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        birthday_builder.setNegativeButton(getResources().getString(R.string.label_cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        editor_birthday = birthday_builder.create();
+    private void onProfileLoaded(Profile profile) {
+        this.profile = profile;
+        ((TextView) findViewById(R.id.tv_username)).setText(profile.getUsername());
+        ((TextView) findViewById(R.id.tv_description)).setText(profile.getDescription());
+        ((TextView) findViewById(R.id.tv_birthday_value)).setText(profile.getBirthday());
+        String gender = profile.getGender();
+        if (gender.equals("Hidden")) {
+            ((TextView) findViewById(R.id.tv_gender_value)).setText(gender);
+        } else {
+            String[] genders = gender.split(",");
+            int first = Integer.parseInt(genders[0]);
+            ((TextView) findViewById(R.id.tv_gender_value)).setText(
+                    getResources().getStringArray(R.array.gender)[first]);
+        }
+        String sexuality = profile.getSexuality();
+        if (sexuality.equals("Hidden")) {
+            ((TextView) findViewById(R.id.tv_sexuality_value)).setText(sexuality);
+        } else {
+            String[] sexualities = sexuality.split(",");
+            int first = Integer.parseInt(sexualities[0]);
+            ((TextView) findViewById(R.id.tv_sexuality_value)).setText(
+                    getResources().getStringArray(R.array.sexuality)[first]);
+        }
+        String race = profile.getGender();
+        if (race.equals("Hidden")) {
+            ((TextView) findViewById(R.id.tv_race_value)).setText(race);
+        } else {
+            String[] races = race.split(",");
+            int first = Integer.parseInt(races[0]);
+            ((TextView) findViewById(R.id.tv_race_value)).setText(
+                    getResources().getStringArray(R.array.race)[first]);
+        }
+    }
+
+    private void onProfileLoadingFail(int error_code) {
+        switch (error_code) {
+            case ResponseCode.USER_NOT_FOUND:
+                showToast(getString(R.string.message_user_not_found));
+                break;
+            case ResponseCode.LOGIN_REQUIRED:
+                showToast(getString(R.string.message_login_required));
+                break;
+            default:
+                showToast(getString(R.string.message_unknown_error));
+        }
+    }
+
+    private void showToast(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    private Profile getProfile() {
+        return profile;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_birthday:
-                editor_birthday.show();
                 break;
             case R.id.btn_sex:
                 break;
@@ -87,11 +140,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_race:
                 break;
         }
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
     }
 
     private View.OnTouchListener btn_touch_listener = new View.OnTouchListener() {

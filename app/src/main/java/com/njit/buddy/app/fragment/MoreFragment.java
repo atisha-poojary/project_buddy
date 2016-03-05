@@ -1,7 +1,9 @@
 package com.njit.buddy.app.fragment;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -37,22 +39,17 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
         btn_setting.setOnClickListener(this);
     }
 
-    private void gotoAccountActivity() {
-        Intent intent = new Intent(getActivity(), AccountActivity.class);
-        startActivity(intent);
-        getActivity().finish();
-        getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_account:
-                gotoAccountActivity();
-
+                startActivity(new Intent(getActivity(), AccountActivity.class));
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
             case R.id.btn_profile:
-                startActivity(new Intent(getActivity(), ProfileActivity.class));
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                intent.putExtra(getString(R.string.key_uid), getUID());
+                startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
             case R.id.btn_setting:
@@ -60,6 +57,11 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
         }
+    }
+
+    private int getUID() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("buddy", Context.MODE_PRIVATE);
+        return preferences.getInt(getString(R.string.key_uid), 0);
     }
 
     private View.OnTouchListener btn_touch_listener = new View.OnTouchListener() {
