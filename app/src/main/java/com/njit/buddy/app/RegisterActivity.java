@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+import com.njit.buddy.app.network.ResponseCode;
 import com.njit.buddy.app.network.task.RegisterTask;
 import com.njit.buddy.app.util.EmailValidator;
 import com.njit.buddy.app.util.PasswordValidator;
@@ -116,7 +118,7 @@ public class RegisterActivity extends Activity {
 
             @Override
             public void onFail(int error_code) {
-                showProgress(false);
+                onRegistrationFail(error_code);
             }
         }.execute(email, username, password);
     }
@@ -136,6 +138,34 @@ public class RegisterActivity extends Activity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void onRegistrationFail(int error_code) {
+        showProgress(false);
+        switch (error_code) {
+            case ResponseCode.SERVER_ERROR:
+                showToast(getString(R.string.message_server_error));
+                break;
+            case ResponseCode.EMAIL_NOT_AVAILABLE:
+                m_email.setError(getString(R.string.message_email_unavailable));
+                m_email.requestFocus();
+                break;
+            case ResponseCode.EMAIL_NOT_VALID:
+                m_email.setError(getString(R.string.message_invalid_email));
+                m_email.requestFocus();
+                break;
+            case ResponseCode.PASSWORD_NOT_VALID:
+                m_password.setError(getString(R.string.message_invalid_password));
+                m_email.requestFocus();
+                break;
+            default:
+                showToast(getString(R.string.message_unknown_error));
+        }
+    }
+
+    private void showToast(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     /**

@@ -170,8 +170,8 @@ public class LoginActivity extends Activity {
         Connector.setAuthorization(authorization.getAuthorization());
         SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(getResources().getString(R.string.key_authorization), authorization.getAuthorization());
-        editor.putInt(getResources().getString(R.string.key_uid), authorization.getUID());
+        editor.putString(getString(R.string.key_authorization), authorization.getAuthorization());
+        editor.putInt(getString(R.string.key_uid), authorization.getUID());
         editor.apply();
         gotoBuddyPage();
     }
@@ -180,7 +180,7 @@ public class LoginActivity extends Activity {
         showProgress(false);
         SharedPreferences preferences = getSharedPreferences("buddy", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.remove(getResources().getString(R.string.key_authorization));
+        editor.remove(getString(R.string.key_authorization));
         editor.apply();
         switch (error_code) {
             case ResponseCode.PASSWORD_OR_EMAIL_MISS_MATCH:
@@ -189,10 +189,10 @@ public class LoginActivity extends Activity {
                 break;
             case ResponseCode.BAD_REQUEST:
             case ResponseCode.SERVER_ERROR:
-                showToast("Oops, it seems the server was taking a nap :(");
+                showToast(getString(R.string.message_server_error));
                 break;
             default:
-                showToast("A mysterious force brought away your login request...");
+                showToast(getString(R.string.message_unknown_error));
         }
     }
 

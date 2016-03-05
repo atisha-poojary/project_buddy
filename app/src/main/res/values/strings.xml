@@ -57,4 +57,11 @@
     <string name="key_uid">uid</string>
     <string name="key_first_time">first_time</string>
 
+    <string name="message_server_error">Oops, it seems the server was taking a nap :(</string>
+    <string name="message_unknown_error">A mysterious force brought away your request…</string>
+    <string name="message_invalid_email">Email not valid, please use NJIT email.</string>
+    <string name="message_invalid_password">Password not valid</string>
+    <string name="message_email_unavailable">This email is in use</string>
+
+
 </resources>

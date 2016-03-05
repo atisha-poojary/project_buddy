@@ -10,7 +10,7 @@ public class DateParser {
 
     public String toString(long timestamp) {
         Date date = new Date(timestamp);
-        return SimpleDateFormat.getInstance().format(date);
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
     }
 
 }
