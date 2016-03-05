@@ -9,7 +9,7 @@
     <string name="title_activity_account">Account</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_setting">Setting</string>
-    <string name="title_activity_hug">Hug</string>
+    <string name="title_activity_hug">Hugs</string>
     <string name="title_activity_comment">Comments</string>
     <string name="title_activity_intro">Introduction</string>
     <string name="label_add_post">Add Post</string>
@@ -41,9 +41,6 @@
     <string name="label_all">All</string>
     <string name="label_loading">Loading…</string>
 
-    <string name="msg_category">I want to…</string>
-    <string name="msg_say_something">Say something…</string>
-
     <string name="tab_news">News Feed</string>
     <string name="tab_attention">Special</string>
     <string name="tab_mood">Mood</string>
@@ -58,6 +55,8 @@
     <string name="key_uid">uid</string>
     <string name="key_first_time">first_time</string>
 
+    <string name="message_choose_category">I want to…</string>
+    <string name="message_say_something">Say something…</string>
     <string name="message_server_error">Oops, it seems the server was taking a nap :(</string>
     <string name="message_unknown_error">A mysterious force brought away your request…</string>
     <string name="message_invalid_email">Email not valid, please use NJIT email.</string>
@@ -65,5 +64,7 @@
     <string name="message_email_unavailable">This email is in use</string>
     <string name="message_login_required">You are not logged in :(</string>
     <string name="message_user_not_found">This user does not exist :(</string>
+
+    <string name="action_send_comment">Send</string>
 
 </resources>

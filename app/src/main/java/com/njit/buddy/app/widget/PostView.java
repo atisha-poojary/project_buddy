@@ -92,7 +92,7 @@ public class PostView extends RelativeLayout {
         if (getPostData() != null) {
             String post_username = getPostData().getUsername();
             String content = getPostData().getContent();
-            String date = new DateParser().toString(getPostData().getTimestamp());
+            String date = DateParser.toString(getPostData().getTimestamp());
             int hug_count = getPostData().getHugs();
             boolean flagged = getPostData().isFlagged();
             boolean belled = getPostData().isBelled();
@@ -144,6 +144,11 @@ public class PostView extends RelativeLayout {
 
     public void gotoCommentActivity() {
         Intent intent = new Intent(getContext(), CommentActivity.class);
+        intent.putExtra("pid", getPostData().getPID());
+        intent.putExtra("uid", getPostData().getUID());
+        intent.putExtra("username", getPostData().getUsername());
+        intent.putExtra("date", DateParser.toString(getPostData().getTimestamp()));
+        intent.putExtra("content", getPostData().getContent());
         getContext().startActivity(intent);
     }
 
@@ -151,7 +156,7 @@ public class PostView extends RelativeLayout {
         Intent intent = new Intent(getContext(), ProfileActivity.class);
         intent.putExtra(getContext().getString(R.string.key_uid), getPostData().getUID());
         getContext().startActivity(intent);
-        ((Activity)getContext()).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+        ((Activity) getContext()).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 
     public void tryFlag() {

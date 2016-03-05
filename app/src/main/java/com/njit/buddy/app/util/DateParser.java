@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class DateParser {
 
-    public String toString(long timestamp) {
+    public static String toString(long timestamp) {
         Date date = new Date(timestamp);
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
     }

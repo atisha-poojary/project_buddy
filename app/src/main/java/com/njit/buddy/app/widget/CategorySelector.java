@@ -61,6 +61,11 @@ public class CategorySelector extends LinearLayout {
         this.listener = listener;
     }
 
+    public void reset() {
+        current_index = 0;
+        update();
+    }
+
     private void onPreviousButtonClicked() {
         if (current_index > 0) {
             current_index--;
@@ -90,7 +95,7 @@ public class CategorySelector extends LinearLayout {
     }
 
     private void fireCategoryChangeEvent() {
-        if(listener != null) {
+        if (listener != null) {
             listener.onSelectedCategoryChange();
         }
     }

@@ -73,7 +73,7 @@ public class NewsFragment extends Fragment implements CategorySelectorListener {
     private void createDialogs() {
         //create category list
         AlertDialog.Builder category_builder = new AlertDialog.Builder(getActivity());
-        category_builder.setTitle(R.string.msg_category)
+        category_builder.setTitle(R.string.message_choose_category)
                 .setItems(R.array.category, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -83,7 +83,7 @@ public class NewsFragment extends Fragment implements CategorySelectorListener {
         category_list = category_builder.create();
         //create post dialog
         AlertDialog.Builder post_builder = new AlertDialog.Builder(getActivity());
-        post_builder.setTitle(R.string.msg_say_something);
+        post_builder.setTitle(R.string.message_say_something);
         content_input = new EditText(getActivity());
         post_builder.setView(content_input);
         post_builder.setPositiveButton(getResources().getString(R.string.label_post), new DialogInterface.OnClickListener() {
@@ -118,6 +118,7 @@ public class NewsFragment extends Fragment implements CategorySelectorListener {
         PostCreateTask task = new PostCreateTask() {
             @Override
             public void onSuccess(Integer result) {
+                category_selector.reset();
                 tryRefreshNewsList();
             }
 
