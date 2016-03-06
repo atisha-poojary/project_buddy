@@ -3,5 +3,6 @@
 
     <color name="tab_background">#FFBE4F</color>
     <color name="notification">#B0151B</color>
+    <color name="post_content">#000000</color>
 
 </resources>
