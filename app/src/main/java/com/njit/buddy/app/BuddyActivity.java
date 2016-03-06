@@ -8,9 +8,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import com.njit.buddy.app.fragment.AttentionFragment;
-import com.njit.buddy.app.fragment.MoodFragment;
+//import com.njit.buddy.app.fragment.MoodFragment;
 import com.njit.buddy.app.fragment.MoreFragment;
 import com.njit.buddy.app.fragment.NewsFragment;
 
@@ -21,17 +22,17 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
 
     private final int TAB_NEWS = 0x001;
     private final int TAB_ATTENTION = 0x002;
-    private final int TAB_MOOD = 0x003;
+//    private final int TAB_MOOD = 0x003;
     private final int TAB_MORE = 0x004;
 
     private NewsFragment news_fragment;
     private AttentionFragment attention_fragment;
-    private MoodFragment mood_fragment;
+//    private MoodFragment mood_fragment;
     private MoreFragment more_fragment;
 
     private View tab_news_layout;
     private View tab_attention_layout;
-    private View tab_mood_layout;
+//    private View tab_mood_layout;
     private View tab_more_layout;
 
     @Override
@@ -72,15 +73,19 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
         //initialize bottom tabs
         tab_news_layout = findViewById(R.id.tab_news_layout);
         tab_attention_layout = findViewById(R.id.tab_attention_layout);
-        tab_mood_layout = findViewById(R.id.tab_mood_layout);
+//        tab_mood_layout = findViewById(R.id.tab_mood_layout);
         tab_more_layout = findViewById(R.id.tab_more_layout);
         tab_news_layout.setOnClickListener(this);
         tab_attention_layout.setOnClickListener(this);
-        tab_mood_layout.setOnClickListener(this);
+//        tab_mood_layout.setOnClickListener(this);
         tab_more_layout.setOnClickListener(this);
 
         View btn_create_post = findViewById(R.id.btn_create_post);
         btn_create_post.setOnClickListener(this);
+
+        //temporarily remove mood tab
+        View tab_mood_layout = findViewById(R.id.tab_mood_layout);
+        ((ViewGroup) tab_mood_layout.getParent()).removeView(tab_mood_layout);
     }
 
     @Override
@@ -92,9 +97,9 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
             case R.id.tab_attention_layout:
                 setTabSelection(TAB_ATTENTION);
                 break;
-            case R.id.tab_mood_layout:
-                setTabSelection(TAB_MOOD);
-                break;
+//            case R.id.tab_mood_layout:
+//                setTabSelection(TAB_MOOD);
+//                break;
             case R.id.tab_more_layout:
                 setTabSelection(TAB_MORE);
                 break;
@@ -146,19 +151,19 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
                 updateActionBar(getResources().getString(R.string.tab_attention), false);
                 updateCurrentTab(TAB_ATTENTION);
                 break;
-            case TAB_MOOD:
-                //change the mood tab background to checked
-                tab_mood_layout.setBackgroundResource(R.drawable.background_tab_checked);
-                //show the mood fragment
-                if (mood_fragment == null) {
-                    mood_fragment = new MoodFragment();
-                    transaction.add(R.id.content, mood_fragment);
-                } else {
-                    transaction.show(mood_fragment);
-                }
-                updateActionBar(getResources().getString(R.string.tab_mood), false);
-                updateCurrentTab(TAB_MOOD);
-                break;
+//            case TAB_MOOD:
+//                //change the mood tab background to checked
+//                tab_mood_layout.setBackgroundResource(R.drawable.background_tab_checked);
+//                //show the mood fragment
+//                if (mood_fragment == null) {
+//                    mood_fragment = new MoodFragment();
+//                    transaction.add(R.id.content, mood_fragment);
+//                } else {
+//                    transaction.show(mood_fragment);
+//                }
+//                updateActionBar(getResources().getString(R.string.tab_mood), false);
+//                updateCurrentTab(TAB_MOOD);
+//                break;
             case TAB_MORE:
                 //change the more tab background to checked
                 tab_more_layout.setBackgroundResource(R.drawable.background_tab_checked);
@@ -179,7 +184,7 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
     private void clearTabSelection() {
         tab_news_layout.setBackgroundResource(R.drawable.background_tab_unchecked);
         tab_attention_layout.setBackgroundResource(R.drawable.background_tab_unchecked);
-        tab_mood_layout.setBackgroundResource(R.drawable.background_tab_unchecked);
+//        tab_mood_layout.setBackgroundResource(R.drawable.background_tab_unchecked);
         tab_more_layout.setBackgroundResource(R.drawable.background_tab_unchecked);
     }
 
@@ -190,9 +195,9 @@ public class BuddyActivity extends AppCompatActivity implements View.OnClickList
         if (attention_fragment != null) {
             transaction.hide(attention_fragment);
         }
-        if (mood_fragment != null) {
-            transaction.hide(mood_fragment);
-        }
+//        if (mood_fragment != null) {
+//            transaction.hide(mood_fragment);
+//        }
         if (more_fragment != null) {
             transaction.hide(more_fragment);
         }
