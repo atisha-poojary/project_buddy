@@ -40,6 +40,7 @@
     <string name="label_comments">Comments</string>
     <string name="label_all">All</string>
     <string name="label_loading">Loading…</string>
+    <string name="label_description">Description</string>
 
     <string name="tab_news">News Feed</string>
     <string name="tab_attention">Special</string>

@@ -44,11 +44,16 @@ public abstract class ProfileViewTask extends AsyncTask<Integer, Void, JSONObjec
                 if (response_code == ResponseCode.BUDDY_OK) {
                     Profile profile = new Profile();
                     profile.setUsername(result.getString("username"));
-                    profile.setDescription(result.has("description") ? result.getString("description") : "Hidden");
-                    profile.setBirthday(result.has("birthday") ? result.getString("birthday") : "Hidden");
-                    profile.setGender(result.has("gender") ? result.getString("gender") : "Hidden");
-                    profile.setSexuality(result.has("sexuality") ? result.getString("sexuality") : "Hidden");
-                    profile.setRace(result.has("race") ? result.getString("race") : "Hidden");
+                    profile.setDescription(result.has("description") ? result.getString("description") : null);
+                    profile.setDescriptionOpen(result.getInt("description_open") == 1);
+                    profile.setBirthday(result.has("birthday") ? result.getString("birthday") : null);
+                    profile.setBirthdayOpen(result.getInt("birthday_open") == 1);
+                    profile.setGender(result.has("gender") ? result.getString("gender") : null);
+                    profile.setGenderOpen(result.getInt("gender_open") == 1);
+                    profile.setSexuality(result.has("sexuality") ? result.getString("sexuality") : null);
+                    profile.setSexualityOpen(result.getInt("sexuality_open") == 1);
+                    profile.setRace(result.has("race") ? result.getString("race") : null);
+                    profile.setRaceOpen(result.getInt("race_open") == 1);
                     onSuccess(profile);
                 } else {
                     onFail(response_code);

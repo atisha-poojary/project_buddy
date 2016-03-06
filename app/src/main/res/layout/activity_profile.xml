@@ -14,37 +14,43 @@
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" android:paddingTop="@dimen/icon_margin">
 
             <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/widget_margin"
-                    android:background="@drawable/border_unchecked"
+                    android:gravity="center" android:background="@drawable/border_unchecked"
                     android:padding="@dimen/icon_margin">
 
-                <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="144dp"
+                <ImageView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center">
+                        android:id="@+id/iv_avatar"
+                        android:src="@drawable/avatar_default"/>
 
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/iv_avatar"
-                            android:src="@drawable/avatar_default"/>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/label_undefined"
+                        android:id="@+id/tv_username" android:gravity="center"/>
 
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="@string/label_undefined"
-                            android:id="@+id/tv_username" android:gravity="center"/>
+            </LinearLayout>
 
-                </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/icon_margin">
 
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/label_description"
+                        android:id="@+id/label_description" android:layout_marginBottom="@dimen/icon_margin"
+                        android:textStyle="bold"/>
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
