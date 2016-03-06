@@ -20,6 +20,7 @@ public class Post {
     private final long timestamp;
 
     private int hugs;
+    private int comments;
 
     private boolean flagged;
     private boolean belled;
@@ -64,6 +65,14 @@ public class Post {
 
     public int getHugs() {
         return hugs;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
+    }
+
+    public int getComments() {
+        return comments;
     }
 
     public void setFlagged(boolean b) {

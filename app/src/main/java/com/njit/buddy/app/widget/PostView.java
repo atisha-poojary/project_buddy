@@ -93,7 +93,8 @@ public class PostView extends RelativeLayout {
             String post_username = getPostData().getUsername();
             String content = getPostData().getContent();
             String date = DateParser.toString(getPostData().getTimestamp());
-            int hug_count = getPostData().getHugs();
+            int hugs = getPostData().getHugs();
+            int comments = getPostData().getComments();
             boolean flagged = getPostData().isFlagged();
             boolean belled = getPostData().isBelled();
             boolean hugged = getPostData().isHugged();
@@ -108,22 +109,25 @@ public class PostView extends RelativeLayout {
                     getResources().getDrawable(R.drawable.ic_flag_unselected));
             //bell button
             ImageView btn_bell = (ImageView) findViewById(R.id.btn_bell);
-            btn_bell.setImageDrawable(belled ?
-                    getResources().getDrawable(R.drawable.ic_bell_selected) :
-                    getResources().getDrawable(R.drawable.ic_bell_unselected));
-            btn_bell.setVisibility(getPostData().getCategory() == Post.ASK ? View.INVISIBLE : View.VISIBLE);
+            if (btn_bell.getVisibility() == VISIBLE) {
+                btn_bell.setImageDrawable(belled ?
+                        getResources().getDrawable(R.drawable.ic_bell_selected) :
+                        getResources().getDrawable(R.drawable.ic_bell_unselected));
+                btn_bell.setVisibility(getPostData().getCategory() == Post.ASK ? View.INVISIBLE : View.VISIBLE);
+            }
             //hug button
             ImageView icon_hug = (ImageView) findViewById(R.id.icon_hug);
-            TextView tv_hug_count = (TextView) findViewById(R.id.tv_hug_count);
             if (getPostData().getUID() == getUID()) {
                 icon_hug.setImageDrawable(getResources().getDrawable(R.drawable.ic_hug_unselected));
-                tv_hug_count.setText(Integer.toString(hug_count));
+                ((TextView) findViewById(R.id.tv_hug_count)).setText(Integer.toString(hugs));
             } else {
                 icon_hug.setImageDrawable(hugged ?
                         getResources().getDrawable(R.drawable.ic_hug_selected) :
                         getResources().getDrawable(R.drawable.ic_hug_unselected));
             }
+            //comment button
             View btn_comment = findViewById(R.id.btn_comment);
+            ((TextView) findViewById(R.id.tv_comment_count)).setText(Integer.toString(comments));
             btn_comment.setVisibility(getPostData().getCategory() == Post.ASK ? View.VISIBLE : View.INVISIBLE);
         }
     }

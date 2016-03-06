@@ -61,6 +61,7 @@ public abstract class PostListTask
                                 element.getInt("category"),
                                 element.getLong("timestamp"));
                         post.setHugs(element.getInt("hugs"));
+                        post.setComments(element.getInt("comments"));
                         post.setFlagged(element.getInt("flagged") != 0);
                         post.setBelled(element.getInt("belled") != 0);
                         post.setHugged(element.getInt("hugged") != 0);

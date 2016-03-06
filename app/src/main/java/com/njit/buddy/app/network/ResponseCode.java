@@ -36,6 +36,8 @@ public class ResponseCode {
                 return "Server error";
             case BAD_REQUEST:
                 return "Bad request";
+            case LOGIN_REQUIRED:
+                return "Login required";
             default:
                 return "Not defined";
         }
