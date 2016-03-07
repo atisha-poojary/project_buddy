@@ -9,10 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import com.njit.buddy.app.AccountActivity;
-import com.njit.buddy.app.ProfileActivity;
-import com.njit.buddy.app.R;
-import com.njit.buddy.app.SettingActivity;
+import com.njit.buddy.app.*;
 
 /**
  * @author toyknight on 8/15/2015.
@@ -46,17 +43,17 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_account:
-                startActivity(new Intent(getActivity(), AccountActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), AccountActivity.class));
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
             case R.id.btn_profile:
                 Intent intent = new Intent(getActivity(), ProfileActivity.class);
                 intent.putExtra(getString(R.string.key_uid), getUID());
-                startActivity(intent);
+                getActivity().startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
             case R.id.btn_setting:
-                startActivity(new Intent(getActivity(), SettingActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), SettingActivity.class));
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
         }
