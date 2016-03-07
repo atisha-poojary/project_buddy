@@ -37,6 +37,9 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
         btn_profile.setOnClickListener(this);
         btn_setting.setOnTouchListener(btn_touch_listener);
         btn_setting.setOnClickListener(this);
+
+        //temporarily hide btn_setting
+        btn_setting.setVisibility(View.INVISIBLE);
     }
 
     @Override
