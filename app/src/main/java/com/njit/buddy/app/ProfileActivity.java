@@ -92,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void onProfileLoaded(Profile profile) {
         this.profile = profile;
         ((TextView) findViewById(R.id.tv_username)).setText(profile.getUsername());
-        String description = profile.getDescription();
+        String description = getMyUID() == uid ? profile.getDescription() + " (tap to edit)" : profile.getDescription();
         ((TextView) findViewById(R.id.tv_description)).setText(description == null ? "Hidden" : description);
         String birthday = profile.getBirthday();
         ((TextView) findViewById(R.id.tv_birthday_value)).setText(birthday == null ? "Hidden" : birthday);
@@ -179,6 +179,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         final EditText input = new EditText(this);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setText(getProfile().getDescription());
         dialog_builder.setView(input);
 
         // Set up the buttons
