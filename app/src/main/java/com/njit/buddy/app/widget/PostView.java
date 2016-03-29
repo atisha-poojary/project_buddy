@@ -154,6 +154,7 @@ public class PostView extends RelativeLayout {
         intent.putExtra("date", DateParser.toString(getPostData().getTimestamp()));
         intent.putExtra("content", getPostData().getContent());
         getContext().startActivity(intent);
+        ((Activity) getContext()).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 
     public void gotoProfileActivity() {

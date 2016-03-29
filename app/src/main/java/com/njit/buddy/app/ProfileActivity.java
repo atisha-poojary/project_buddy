@@ -59,13 +59,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             tv_title.setText(getResources().getString(R.string.title_activity_profile));
         }
 
-        View tv_description = findViewById(R.id.tv_description);
+        View btn_edit_description = findViewById(R.id.btn_edit_decription);
         View btn_birthday = findViewById(R.id.btn_birthday);
         View btn_gender = findViewById(R.id.btn_sex);
         View btn_sexuality = findViewById(R.id.btn_sexuality);
         View btn_race = findViewById(R.id.btn_race);
 
-        tv_description.setOnClickListener(this);
+        btn_edit_description.setOnClickListener(this);
         btn_birthday.setOnTouchListener(btn_touch_listener);
         btn_birthday.setOnClickListener(this);
         btn_gender.setOnTouchListener(btn_touch_listener);
@@ -92,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void onProfileLoaded(Profile profile) {
         this.profile = profile;
         ((TextView) findViewById(R.id.tv_username)).setText(profile.getUsername());
-        String description = getMyUID() == uid ? profile.getDescription() + " (tap to edit)" : profile.getDescription();
+        String description = profile.getDescription();
         ((TextView) findViewById(R.id.tv_description)).setText(description == null ? "Hidden" : description);
         String birthday = profile.getBirthday();
         ((TextView) findViewById(R.id.tv_birthday_value)).setText(birthday == null ? "Hidden" : birthday);
@@ -123,6 +123,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             ((TextView) findViewById(R.id.tv_race_value)).setText(
                     getResources().getStringArray(R.array.race)[first]);
         }
+        findViewById(R.id.btn_edit_decription).setVisibility(uid == getMyUID() ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void onOperationFail(int error_code) {
@@ -156,7 +157,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         if (getMyUID() == uid) {
             switch (v.getId()) {
-                case R.id.tv_description:
+                case R.id.btn_edit_decription:
                     editDescription();
                     break;
                 case R.id.btn_birthday:

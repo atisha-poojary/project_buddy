@@ -23,12 +23,14 @@ public abstract class PostListTask
         Integer page = params[0];
         Integer category = params[1];
         Integer attention = params[2];
+        Integer target = params[3];
 
         try {
             JSONObject request_body = new JSONObject();
             request_body.put("page", page);
             request_body.put("category", category);
             request_body.put("attention", attention);
+            request_body.put("target_uid", target);
 
             String result = Connector.executePost(Connector.SERVER_ADDRESS + "/post/list", request_body.toString());
             return new JSONObject(result);

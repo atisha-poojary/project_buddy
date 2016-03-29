@@ -44,20 +44,39 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/icon_margin">
 
-                <TextView
-                        android:layout_width="wrap_content"
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="@string/label_description"
-                        android:id="@+id/label_description" android:layout_marginBottom="@dimen/icon_margin"
-                        android:textStyle="bold"/>
+                        >
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="@string/label_description"
+                            android:id="@+id/label_description"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/icon_margin"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="[Edit]"
+                            android:id="@+id/btn_edit_decription"
+                            android:gravity="center_vertical"/>
+
+                </LinearLayout>
+
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/label_undefined"
                         android:id="@+id/tv_description"
                         android:layout_gravity="center_vertical"
-                        />
+                        android:padding="@dimen/icon_margin"/>
 
             </LinearLayout>
 

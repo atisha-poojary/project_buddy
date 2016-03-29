@@ -145,7 +145,7 @@ public class NewsFragment extends Fragment implements CategorySelectorListener {
                 Log.error("News", error_code);
             }
         };
-        task.execute(current_page, getSelectedCategory(), 0);
+        task.execute(current_page, getSelectedCategory(), 0, 0);
     }
 
     public void tryReadMorePosts() {
@@ -163,7 +163,7 @@ public class NewsFragment extends Fragment implements CategorySelectorListener {
                 Log.error("News", error_code);
             }
         };
-        task.execute(++current_page, getSelectedCategory(), 0);
+        task.execute(++current_page, getSelectedCategory(), 0, 0);
     }
 
     public void setPostList(ArrayList<Post> post_list) {
