@@ -83,7 +83,6 @@ public class AttentionFragment extends Fragment {
             }
         };
         task.execute(++current_page, -1, 1, 0);
-
     }
 
     private void setAttentionList(ArrayList<Post> post_list) {

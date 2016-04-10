@@ -70,6 +70,10 @@
                 android:label="@string/title_activity_password_change"
                 android:windowSoftInputMode="adjustResize|stateVisible">
         </activity>
+        <activity
+                android:name=".UserPostsActivity"
+                android:label="@string/title_activity_user_posts">
+        </activity>
     </application>
 
 </manifest>

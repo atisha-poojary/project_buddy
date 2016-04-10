@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -59,12 +60,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             tv_title.setText(getResources().getString(R.string.title_activity_profile));
         }
 
+        View btn_posts = findViewById(R.id.btn_posts);
         View btn_edit_description = findViewById(R.id.btn_edit_decription);
         View btn_birthday = findViewById(R.id.btn_birthday);
         View btn_gender = findViewById(R.id.btn_sex);
         View btn_sexuality = findViewById(R.id.btn_sexuality);
         View btn_race = findViewById(R.id.btn_race);
 
+        btn_posts.setOnClickListener(this);
+        btn_posts.setOnTouchListener(btn_touch_listener);
         btn_edit_description.setOnClickListener(this);
         btn_birthday.setOnTouchListener(btn_touch_listener);
         btn_birthday.setOnClickListener(this);
@@ -155,50 +159,60 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (getMyUID() == uid) {
-            switch (v.getId()) {
-                case R.id.btn_edit_decription:
-                    editDescription();
-                    break;
-                case R.id.btn_birthday:
-                    break;
-                case R.id.btn_sex:
-                    break;
-                case R.id.btn_sexuality:
-                    break;
-                case R.id.btn_race:
-                    break;
-            }
+        switch (v.getId()) {
+            case R.id.btn_posts:
+                gotoUserPostsActivity();
+                break;
+            case R.id.btn_edit_decription:
+                editDescription();
+                break;
+            case R.id.btn_birthday:
+                break;
+            case R.id.btn_sex:
+                break;
+            case R.id.btn_sexuality:
+                break;
+            case R.id.btn_race:
+                break;
         }
     }
 
+    private void gotoUserPostsActivity() {
+        Intent intent = new Intent(this, UserPostsActivity.class);
+        intent.putExtra(getString(R.string.key_uid), uid);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+    }
+
     private void editDescription() {
-        AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
-        dialog_builder.setTitle("Input your self-introduction");
+        if (getMyUID() == uid) {
+            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
+            dialog_builder.setTitle("Input your self-introduction");
 
-        // Set up the input
-        final EditText input = new EditText(this);
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        input.setText(getProfile().getDescription());
-        dialog_builder.setView(input);
+            // Set up the input
+            final EditText input = new EditText(this);
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setText(getProfile().getDescription());
+            dialog_builder.setView(input);
 
-        // Set up the buttons
-        dialog_builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String description = input.getText().toString();
-                tryUpdateDescription(description);
-            }
-        });
-        dialog_builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+            // Set up the buttons
+            dialog_builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String description = input.getText().toString();
+                    tryUpdateDescription(description);
+                }
+            });
+            dialog_builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
 
-        dialog_builder.show();
+            dialog_builder.show();
+        }
     }
 
     private void tryUpdateDescription(final String description) {
@@ -216,7 +230,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         };
         task.execute(
                 getProfile().getUsername(),
-                description, getProfile().isDescriptionOpen() ? 1 : 0,
+                description + new String(Character.toChars(0x1F60A)), getProfile().isDescriptionOpen() ? 1 : 0,
                 getProfile().getBirthday(), getProfile().isBirthdayOpen() ? 1 : 0,
                 getProfile().getGender(), getProfile().isGenderOpen() ? 1 : 0,
                 getProfile().getSexuality(), getProfile().isSexualityOpen() ? 1 : 0,

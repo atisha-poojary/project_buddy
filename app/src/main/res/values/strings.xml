@@ -13,6 +13,8 @@
     <string name="title_activity_comment">Comments</string>
     <string name="title_activity_intro">Introduction</string>
     <string name="title_activity_password_change">Change Password</string>
+    <string name="title_activity_user_posts">Posts</string>
+
     <string name="label_add_post">Add Post</string>
     <string name="label_account">Account</string>
     <string name="label_profile">Profile</string>
@@ -43,6 +45,7 @@
     <string name="label_loading">Loading…</string>
     <string name="label_description">Description</string>
     <string name="label_submit">Submit</string>
+    <string name="label_posts">Posts</string>
 
     <string name="tab_news">News Feed</string>
     <string name="tab_attention">Special</string>
