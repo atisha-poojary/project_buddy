@@ -230,7 +230,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         };
         task.execute(
                 getProfile().getUsername(),
-                description + new String(Character.toChars(0x1F60A)), getProfile().isDescriptionOpen() ? 1 : 0,
+                description, getProfile().isDescriptionOpen() ? 1 : 0,
                 getProfile().getBirthday(), getProfile().isBirthdayOpen() ? 1 : 0,
                 getProfile().getGender(), getProfile().isGenderOpen() ? 1 : 0,
                 getProfile().getSexuality(), getProfile().isSexualityOpen() ? 1 : 0,
