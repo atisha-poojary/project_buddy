@@ -12,6 +12,7 @@
     <string name="title_activity_hug">Hugs</string>
     <string name="title_activity_comment">Comments</string>
     <string name="title_activity_intro">Introduction</string>
+    <string name="title_activity_password_change">Change Password</string>
     <string name="label_add_post">Add Post</string>
     <string name="label_account">Account</string>
     <string name="label_profile">Profile</string>
@@ -41,6 +42,7 @@
     <string name="label_all">All</string>
     <string name="label_loading">Loading…</string>
     <string name="label_description">Description</string>
+    <string name="label_submit">Submit</string>
 
     <string name="tab_news">News Feed</string>
     <string name="tab_attention">Special</string>
@@ -65,7 +67,12 @@
     <string name="message_email_unavailable">This email is in use</string>
     <string name="message_login_required">You are not logged in :(</string>
     <string name="message_user_not_found">This user does not exist :(</string>
+    <string name="message_password_changed">Password has been changed.</string>
 
     <string name="action_send_comment">Send</string>
+
+    <string name="hint_old_password">Enter your current password</string>
+    <string name="hint_new_password">Enter your new password</string>
+    <string name="hint_confirm_new_password">Confirm your new password</string>
 
 </resources>

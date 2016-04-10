@@ -156,7 +156,7 @@ public class RegisterActivity extends Activity {
                 break;
             case ResponseCode.PASSWORD_NOT_VALID:
                 m_password.setError(getString(R.string.message_invalid_password));
-                m_email.requestFocus();
+                m_password.requestFocus();
                 break;
             default:
                 showToast(getString(R.string.message_unknown_error));

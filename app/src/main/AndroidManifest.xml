@@ -31,9 +31,9 @@
                 android:windowSoftInputMode="adjustResize|stateVisible">
         </activity>
         <activity
-            android:name=".ConditionsActivity"
-            android:label="@string/title_activity_terms"
-            android:windowSoftInputMode="stateAlwaysHidden">
+                android:name=".ConditionsActivity"
+                android:label="@string/title_activity_terms"
+                android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".RegisterActivity"
@@ -41,9 +41,9 @@
                 android:windowSoftInputMode="adjustResize|stateVisible">
         </activity>
         <activity
-            android:name=".IntroductionActivity"
-            android:label="@string/title_activity_intro"
-            android:windowSoftInputMode="stateAlwaysHidden">
+                android:name=".IntroductionActivity"
+                android:label="@string/title_activity_intro"
+                android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".AccountActivity"
@@ -64,6 +64,11 @@
         <activity
                 android:name=".CommentActivity"
                 android:label="@string/title_activity_comment">
+        </activity>
+        <activity
+                android:name=".PasswordChangeActivity"
+                android:label="@string/title_activity_password_change"
+                android:windowSoftInputMode="adjustResize|stateVisible">
         </activity>
     </application>
 

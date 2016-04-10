@@ -47,8 +47,22 @@ public class AccountActivity extends AppCompatActivity {
             TextView tv_title = (TextView) getSupportActionBar().getCustomView().findViewById(R.id.tv_title);
             tv_title.setText(getResources().getString(R.string.title_activity_account));
         }
+
+        Button btn_change_password = (Button) findViewById(R.id.btn_change_password);
+        btn_change_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoPasswordChangeActivity();
+            }
+        });
+
         Button btn_logout = (Button) findViewById(R.id.btn_logout);
-        btn_logout.setOnClickListener(btn_logout_click_listener);
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
 
         ((TextView) findViewById(R.id.tv_username)).setText(getString(R.string.label_loading));
     }
@@ -56,6 +70,12 @@ public class AccountActivity extends AppCompatActivity {
     private void gotoBuddyActivity() {
         finish();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+    }
+
+    private void gotoPasswordChangeActivity() {
+        Intent intent = new Intent(this, PasswordChangeActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 
     private int getUID() {
@@ -81,15 +101,6 @@ public class AccountActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             gotoBuddyActivity();
-        }
-
-    };
-
-    private View.OnClickListener btn_logout_click_listener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            logout();
         }
 
     };
