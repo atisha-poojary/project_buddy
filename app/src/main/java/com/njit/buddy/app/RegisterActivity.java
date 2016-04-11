@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.njit.buddy.app.network.ResponseCode;
 import com.njit.buddy.app.network.task.RegisterTask;
+import com.njit.buddy.app.network.task.VerificationSendingTask;
 import com.njit.buddy.app.util.EmailValidator;
 import com.njit.buddy.app.util.PasswordValidator;
 
@@ -26,9 +27,12 @@ public class RegisterActivity extends Activity {
     private EditText m_username;
     private EditText m_password;
     private EditText m_password_confirm;
+    private EditText m_verification_code;
 
     private View progress_view;
     private View register_form;
+
+    private Button btn_send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +43,24 @@ public class RegisterActivity extends Activity {
         m_username = (EditText) findViewById(R.id.et_username);
         m_password = (EditText) findViewById(R.id.et_password);
         m_password_confirm = (EditText) findViewById(R.id.et_password_confirm);
+        m_verification_code = (EditText) findViewById(R.id.et_verification_code);
 
         progress_view = findViewById(R.id.register_progress);
         register_form = findViewById(R.id.register_form);
+
+        btn_send = (Button) findViewById(R.id.btn_send);
+        btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendVerificationCode();
+            }
+        });
 
         Button btn_register = (Button) findViewById(R.id.btn_register);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                attemptRegister();
+                register();
             }
         });
 
@@ -65,11 +78,45 @@ public class RegisterActivity extends Activity {
         gotoLoginPage();
     }
 
-    public void attemptRegister() {
+    public void sendVerificationCode() {
+        String email = m_email.getText().toString();
+        EmailValidator email_validator = new EmailValidator();
+        if (TextUtils.isEmpty(email)) {
+            m_email.setError(getResources().getString(R.string.error_field_required));
+            m_email.requestFocus();
+            return;
+        }
+        if (!email_validator.validate(email)) {
+            m_email.setError(getResources().getString(R.string.error_invalid_email));
+            m_email.requestFocus();
+            return;
+        }
+        btn_send.setEnabled(false);
+        btn_send.setText(getString(R.string.label_sending));
+        VerificationSendingTask task = new VerificationSendingTask() {
+            @Override
+            public void onSuccess(Integer result) {
+                btn_send.setEnabled(true);
+                btn_send.setText(getString(R.string.label_send));
+                showToast(getString(R.string.message_verification_code_sent));
+            }
+
+            @Override
+            public void onFail(int error_code) {
+                btn_send.setEnabled(true);
+                btn_send.setText(getString(R.string.label_send));
+                RegisterActivity.this.onFail(error_code);
+            }
+        };
+        task.execute(email);
+    }
+
+    public void register() {
         String email = m_email.getText().toString();
         String username = m_username.getText().toString();
         String password = m_password.getText().toString();
         String password_confirm = m_password_confirm.getText().toString();
+        String verification = m_verification_code.getText().toString();
 
         EmailValidator email_validator = new EmailValidator();
         PasswordValidator password_validator = new PasswordValidator();
@@ -91,6 +138,11 @@ public class RegisterActivity extends Activity {
         if (TextUtils.isEmpty(password_confirm)) {
             m_password_confirm.setError(getResources().getString(R.string.error_field_required));
             m_password_confirm.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(verification)) {
+            m_verification_code.setError(getResources().getString(R.string.error_field_required));
+            m_verification_code.requestFocus();
             return;
         }
         if (!email_validator.validate(email)) {
@@ -118,29 +170,12 @@ public class RegisterActivity extends Activity {
 
             @Override
             public void onFail(int error_code) {
-                onRegistrationFail(error_code);
+                RegisterActivity.this.onFail(error_code);
             }
-        }.execute(email, username, password);
+        }.execute(email, username, password, verification);
     }
 
-    public void gotoLoginPageAndLogin() {
-        String email = m_email.getText().toString();
-        String password = m_password.getText().toString();
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra("email", email);
-        intent.putExtra("password", password);
-        startActivity(intent);
-        finish();
-    }
-
-    public void gotoLoginPage() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private void onRegistrationFail(int error_code) {
+    private void onFail(int error_code) {
         showProgress(false);
         switch (error_code) {
             case ResponseCode.SERVER_ERROR:
@@ -158,9 +193,37 @@ public class RegisterActivity extends Activity {
                 m_password.setError(getString(R.string.message_invalid_password));
                 m_password.requestFocus();
                 break;
+            case ResponseCode.VERIFICATION_CODE_ERROR:
+                m_verification_code.setError(getString(R.string.message_verification_code_error));
+                m_verification_code.requestFocus();
+                break;
+            case ResponseCode.VERIFICATION_CODE_EXPIRED:
+                m_verification_code.setError(getString(R.string.message_verification_code_expired));
+                m_verification_code.requestFocus();
+                break;
+            case ResponseCode.MAIL_SENDING_TOO_FREQUENT:
+                showToast(getString(R.string.message_mail_sending_too_frequent));
+                break;
             default:
                 showToast(getString(R.string.message_unknown_error));
         }
+    }
+
+    public void gotoLoginPageAndLogin() {
+        String email = m_email.getText().toString();
+        String password = m_password.getText().toString();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("email", email);
+        intent.putExtra("password", password);
+        startActivity(intent);
+        finish();
+    }
+
+    public void gotoLoginPage() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void showToast(String message) {

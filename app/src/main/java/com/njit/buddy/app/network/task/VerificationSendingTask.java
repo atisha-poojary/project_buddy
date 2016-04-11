@@ -10,28 +10,27 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
- * @author toyknight 4/10/2016.
+ * @author toyknight 4/11/2016.
  */
-public abstract class PasswordChangeTask extends AsyncTask<String, Void, Integer> implements ResponseHandler<Integer> {
+public abstract class VerificationSendingTask
+        extends AsyncTask<String, Void, Integer> implements ResponseHandler<Integer> {
 
     @Override
     protected Integer doInBackground(String... params) {
-        String old_password = params[0];
-        String new_password = params[1];
+        String email = params[0];
 
         try {
             JSONObject request_body = new JSONObject();
-            request_body.put("old_password", old_password);
-            request_body.put("new_password", new_password);
+            request_body.put("email", email);
 
-            String result = Connector.executePost(Connector.SERVER_ADDRESS + "/password/change", request_body.toString());
+            String result = Connector.executePost(Connector.SERVER_ADDRESS + "/verification", request_body.toString());
             JSONObject response = new JSONObject(result);
             return response.getInt("response_code");
         } catch (JSONException ex) {
-            Log.d("Password Change", ex.toString());
+            Log.d("Verification", ex.toString());
             return ResponseCode.SERVER_ERROR;
         } catch (IOException ex) {
-            Log.d("Password Change", ex.toString());
+            Log.d("Verification", ex.toString());
             return ResponseCode.SERVER_ERROR;
         }
     }

@@ -2,7 +2,7 @@
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email">NJIT Email</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_confirm_password">Confirm Password</string>
     <string name="prompt_verification_code">Verification Code</string>
@@ -14,7 +14,7 @@
 
     <string name="msg_verification_sent">Verification code has been sent</string>
 
-    <string name="error_invalid_email">Only NJIT email is allowed</string>
+    <string name="error_invalid_email">Please enter a valid NJIT email</string>
     <string name="error_invalid_password">Password must be at least 8 characters long</string>
     <string name="error_password_mismatch">Confirmation password mismatch</string>
     <string name="error_incorrect_password">Password miss match</string>

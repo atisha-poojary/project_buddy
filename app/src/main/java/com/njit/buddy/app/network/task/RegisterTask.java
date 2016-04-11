@@ -19,12 +19,14 @@ public abstract class RegisterTask extends AsyncTask<String, Void, Integer> impl
         String email = params[0];
         String username = params[1];
         String password = params[2];
+        String verification = params[3];
 
         try {
             JSONObject request_body = new JSONObject();
             request_body.put("email", email);
             request_body.put("username", username);
             request_body.put("password", password);
+            request_body.put("verification", verification);
 
             String result = Connector.executePost(Connector.SERVER_ADDRESS + "/register", request_body.toString());
             JSONObject response = new JSONObject(result);

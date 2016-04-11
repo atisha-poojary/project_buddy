@@ -13,9 +13,13 @@ public class EmailValidator {
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     public boolean validate(String email) {
+        return validate(email, "njit.edu");
+    }
+
+    public boolean validate(String email, String host) {
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(email);
-        return matcher.matches() && email.endsWith("njit.edu");
+        return matcher.matches();
     }
 
 }
