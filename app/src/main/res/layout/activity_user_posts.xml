@@ -19,7 +19,7 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/user_posts_layout">
+                    android:id="@+id/user_posts_layout" android:paddingTop="@dimen/icon_margin">
             </LinearLayout>
 
         </com.njit.buddy.app.widget.BuddyScrollView>
