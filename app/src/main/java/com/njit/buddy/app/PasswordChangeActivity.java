@@ -51,7 +51,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
             getSupportActionBar().getCustomView().findViewById(R.id.btn_back).setOnClickListener(btn_back_click_listener);
             TextView tv_title = (TextView) getSupportActionBar().getCustomView().findViewById(R.id.tv_title);
-            tv_title.setText(getResources().getString(R.string.title_activity_account));
+            tv_title.setText(getResources().getString(R.string.title_activity_password_change));
         }
 
         Button btn_submit = (Button) findViewById(R.id.btn_submit);
