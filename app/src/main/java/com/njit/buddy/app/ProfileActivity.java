@@ -62,35 +62,29 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         View btn_posts = findViewById(R.id.btn_posts);
         View btn_edit_description = findViewById(R.id.btn_edit_decription);
-        View btn_birthday = findViewById(R.id.btn_birthday);
-        View btn_gender = findViewById(R.id.btn_sex);
-        View btn_sexuality = findViewById(R.id.btn_sexuality);
-        View btn_race = findViewById(R.id.btn_race);
+        View btn_edit_birthday = findViewById(R.id.btn_edit_birthday);
+        View btn_edit_gender = findViewById(R.id.btn_edit_gender);
+        View btn_edit_sexuality = findViewById(R.id.btn_edit_sexuality);
+        View btn_edit_race = findViewById(R.id.btn_edit_race);
 
         btn_posts.setOnClickListener(this);
         btn_posts.setOnTouchListener(btn_touch_listener);
         btn_edit_description.setOnClickListener(this);
-        btn_birthday.setOnTouchListener(btn_touch_listener);
-        btn_birthday.setOnClickListener(this);
-        btn_gender.setOnTouchListener(btn_touch_listener);
-        btn_gender.setOnClickListener(this);
-        btn_sexuality.setOnTouchListener(btn_touch_listener);
-        btn_sexuality.setOnClickListener(this);
-        btn_race.setOnTouchListener(btn_touch_listener);
-        btn_race.setOnClickListener(this);
-
-        //temporarily hide these buttons
-        btn_birthday.setVisibility(View.INVISIBLE);
-        btn_gender.setVisibility(View.INVISIBLE);
-        btn_sexuality.setVisibility(View.INVISIBLE);
-        btn_race.setVisibility(View.INVISIBLE);
+        btn_edit_birthday.setOnTouchListener(btn_touch_listener);
+        btn_edit_birthday.setOnClickListener(this);
+        btn_edit_gender.setOnTouchListener(btn_touch_listener);
+        btn_edit_gender.setOnClickListener(this);
+        btn_edit_sexuality.setOnTouchListener(btn_touch_listener);
+        btn_edit_sexuality.setOnClickListener(this);
+        btn_edit_race.setOnTouchListener(btn_touch_listener);
+        btn_edit_race.setOnClickListener(this);
 
         ((TextView) findViewById(R.id.tv_username)).setText(getString(R.string.label_loading));
         ((TextView) findViewById(R.id.tv_description)).setText(getString(R.string.label_loading));
-        ((TextView) findViewById(R.id.tv_birthday_value)).setText(getString(R.string.label_loading));
-        ((TextView) findViewById(R.id.tv_gender_value)).setText(getString(R.string.label_loading));
-        ((TextView) findViewById(R.id.tv_sexuality_value)).setText(getString(R.string.label_loading));
-        ((TextView) findViewById(R.id.tv_race_value)).setText(getString(R.string.label_loading));
+        ((TextView) findViewById(R.id.tv_birthday)).setText(getString(R.string.label_loading));
+        ((TextView) findViewById(R.id.tv_gender)).setText(getString(R.string.label_loading));
+        ((TextView) findViewById(R.id.tv_sexuality)).setText(getString(R.string.label_loading));
+        ((TextView) findViewById(R.id.tv_race)).setText(getString(R.string.label_loading));
     }
 
     private void onProfileLoaded(Profile profile) {
@@ -99,35 +93,42 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         String description = profile.getDescription();
         ((TextView) findViewById(R.id.tv_description)).setText(description == null ? "Hidden" : description);
         String birthday = profile.getBirthday();
-        ((TextView) findViewById(R.id.tv_birthday_value)).setText(birthday == null ? "Hidden" : birthday);
+        ((TextView) findViewById(R.id.tv_birthday)).setText(birthday == null ? "Hidden" : birthday);
         String gender = profile.getGender();
-        if (gender == null) {
-            ((TextView) findViewById(R.id.tv_gender_value)).setText("Hidden");
-        } else {
-            String[] genders = gender.split(",");
-            int first = Integer.parseInt(genders[0]);
-            ((TextView) findViewById(R.id.tv_gender_value)).setText(
-                    getResources().getStringArray(R.array.gender)[first]);
-        }
+        ((TextView) findViewById(R.id.tv_gender)).setText(description == null ? "Hidden" : gender);
+        //if (gender == null) {
+          //  ((TextView) findViewById(R.id.tv_gender)).setText("Hidden");
+        //} else {
+            //String[] genders = gender.split(",");
+            //int first = Integer.parseInt(genders[0]);
+            //((TextView) findViewById(R.id.tv_gender)).setText(
+          //          getResources().getStringArray(R.array.gender)[first]);
+        //}
         String sexuality = profile.getSexuality();
-        if (sexuality == null) {
-            ((TextView) findViewById(R.id.tv_sexuality_value)).setText("Hidden");
-        } else {
-            String[] sexualities = sexuality.split(",");
-            int first = Integer.parseInt(sexualities[0]);
-            ((TextView) findViewById(R.id.tv_sexuality_value)).setText(
-                    getResources().getStringArray(R.array.sexuality)[first]);
-        }
-        String race = profile.getGender();
-        if (race == null) {
-            ((TextView) findViewById(R.id.tv_race_value)).setText("Hidden");
-        } else {
-            String[] races = race.split(",");
-            int first = Integer.parseInt(races[0]);
-            ((TextView) findViewById(R.id.tv_race_value)).setText(
-                    getResources().getStringArray(R.array.race)[first]);
-        }
+        ((TextView) findViewById(R.id.tv_sexuality)).setText(description == null ? "Hidden" : sexuality);
+        //if (sexuality == null) {
+          //  ((TextView) findViewById(R.id.tv_sexuality)).setText("Hidden");
+        //} else {
+          //  String[] sexualities = sexuality.split(",");
+            //int first = Integer.parseInt(sexualities[0]);
+            //((TextView) findViewById(R.id.tv_sexuality)).setText(
+              //      getResources().getStringArray(R.array.sexuality)[first]);
+        //}
+        String race = profile.getRace();
+        ((TextView) findViewById(R.id.tv_race)).setText(description == null ? "Hidden" : race);
+        //if (race == null) {
+          //  ((TextView) findViewById(R.id.tv_race)).setText("Hidden");
+        //} else {
+          //  String[] races = race.split(",");
+            //int first = Integer.parseInt(races[0]);
+            //((TextView) findViewById(R.id.tv_race)).setText(
+              //      getResources().getStringArray(R.array.race)[first]);
+        //}
         findViewById(R.id.btn_edit_decription).setVisibility(uid == getMyUID() ? View.VISIBLE : View.INVISIBLE);
+        findViewById(R.id.btn_edit_birthday).setVisibility(uid == getMyUID() ? View.VISIBLE : View.INVISIBLE);
+        findViewById(R.id.btn_edit_gender).setVisibility(uid == getMyUID() ? View.VISIBLE : View.INVISIBLE);
+        findViewById(R.id.btn_edit_sexuality).setVisibility(uid == getMyUID() ? View.VISIBLE : View.INVISIBLE);
+        findViewById(R.id.btn_edit_race).setVisibility(uid == getMyUID() ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void onOperationFail(int error_code) {
@@ -166,13 +167,17 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_edit_decription:
                 editDescription();
                 break;
-            case R.id.btn_birthday:
+            case R.id.btn_edit_birthday:
+                editBirthday();
                 break;
-            case R.id.btn_sex:
+            case R.id.btn_edit_gender:
+                editGender();
                 break;
-            case R.id.btn_sexuality:
+            case R.id.btn_edit_sexuality:
+                editSexuality();
                 break;
-            case R.id.btn_race:
+            case R.id.btn_edit_race:
+                editRace();
                 break;
         }
     }
@@ -215,6 +220,127 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    private void editBirthday() {
+        if (getMyUID() == uid) {
+            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
+            dialog_builder.setTitle("Enter your Birthday:");
+
+            // Set up the input
+            final EditText input = new EditText(this);
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
+            input.setText(getProfile().getBirthday());
+            dialog_builder.setView(input);
+
+            // Set up the buttons
+            dialog_builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String birthday = input.getText().toString();
+                    tryUpdateBirthday(birthday);
+                }
+            });
+            dialog_builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            dialog_builder.show();
+        }
+    }
+    private void editGender() {
+        if (getMyUID() == uid) {
+            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
+            dialog_builder.setTitle("Enter your Gender:");
+
+            // Set up the input
+            final EditText input = new EditText(this);
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setText(getProfile().getGender());
+            dialog_builder.setView(input);
+
+            // Set up the buttons
+            dialog_builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String gender = input.getText().toString();
+                    tryUpdateGender(gender);
+                }
+            });
+            dialog_builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            dialog_builder.show();
+        }
+    }
+    private void editSexuality() {
+        if (getMyUID() == uid) {
+            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
+            dialog_builder.setTitle("Enter your Sexuality:");
+
+            // Set up the input
+            final EditText input = new EditText(this);
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setText(getProfile().getSexuality());
+            dialog_builder.setView(input);
+
+            // Set up the buttons
+            dialog_builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String sexuality = input.getText().toString();
+                    tryUpdateSexuality(sexuality);
+                }
+            });
+            dialog_builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            dialog_builder.show();
+        }
+    }
+    private void editRace() {
+        if (getMyUID() == uid) {
+            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
+            dialog_builder.setTitle("Enter your Race:");
+
+            // Set up the input
+            final EditText input = new EditText(this);
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            input.setText(getProfile().getRace());
+            dialog_builder.setView(input);
+
+            // Set up the buttons
+            dialog_builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String race = input.getText().toString();
+                    tryUpdateRace(race);
+                }
+            });
+            dialog_builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            dialog_builder.show();
+        }
+    }
+
     private void tryUpdateDescription(final String description) {
         ProfileEditTask task = new ProfileEditTask() {
             @Override
@@ -236,6 +362,93 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 getProfile().getSexuality(), getProfile().isSexualityOpen() ? 1 : 0,
                 getProfile().getRace(), getProfile().isRaceOpen() ? 1 : 0);
     }
+
+    private void tryUpdateBirthday(final String birthday) {
+        ProfileEditTask task = new ProfileEditTask() {
+            @Override
+            public void onSuccess(Integer result) {
+                getProfile().setBirthday(birthday);
+                onProfileLoaded(getProfile());
+            }
+
+            @Override
+            public void onFail(int error_code) {
+                onOperationFail(error_code);
+            }
+        };
+        task.execute(
+                getProfile().getUsername(),
+                getProfile().getDescription(), getProfile().isDescriptionOpen() ? 1 : 0,
+                birthday, getProfile().isBirthdayOpen() ? 1 : 0,
+                getProfile().getGender(), getProfile().isGenderOpen() ? 1 : 0,
+                getProfile().getSexuality(), getProfile().isSexualityOpen() ? 1 : 0,
+                getProfile().getRace(), getProfile().isRaceOpen() ? 1 : 0);
+    }
+
+    private void tryUpdateGender(final String gender) {
+        ProfileEditTask task = new ProfileEditTask() {
+            @Override
+            public void onSuccess(Integer result) {
+                getProfile().setGender(gender);
+                onProfileLoaded(getProfile());
+            }
+
+            @Override
+            public void onFail(int error_code) {
+                onOperationFail(error_code);
+            }
+        };
+        task.execute(
+                getProfile().getUsername(),
+                getProfile().getDescription(), getProfile().isDescriptionOpen() ? 1 : 0,
+                getProfile().getBirthday(), getProfile().isBirthdayOpen() ? 1 : 0,
+                gender, getProfile().isGenderOpen() ? 1 : 0,
+                getProfile().getSexuality(), getProfile().isSexualityOpen() ? 1 : 0,
+                getProfile().getRace(), getProfile().isRaceOpen() ? 1 : 0);
+    }
+    private void tryUpdateSexuality(final String sexuality) {
+        ProfileEditTask task = new ProfileEditTask() {
+            @Override
+            public void onSuccess(Integer result) {
+                getProfile().setSexuality(sexuality);
+                onProfileLoaded(getProfile());
+            }
+
+            @Override
+            public void onFail(int error_code) {
+                onOperationFail(error_code);
+            }
+        };
+        task.execute(
+                getProfile().getUsername(),
+                getProfile().getDescription(), getProfile().isDescriptionOpen() ? 1 : 0,
+                getProfile().getBirthday(), getProfile().isBirthdayOpen() ? 1 : 0,
+                getProfile().getGender(), getProfile().isGenderOpen() ? 1 : 0,
+                sexuality, getProfile().isSexualityOpen() ? 1 : 0,
+                getProfile().getRace(), getProfile().isRaceOpen() ? 1 : 0);
+    }
+    private void tryUpdateRace(final String race) {
+        ProfileEditTask task = new ProfileEditTask() {
+            @Override
+            public void onSuccess(Integer result) {
+                getProfile().setRace(race);
+                onProfileLoaded(getProfile());
+            }
+
+            @Override
+            public void onFail(int error_code) {
+                onOperationFail(error_code);
+            }
+        };
+        task.execute(
+                getProfile().getUsername(),
+                getProfile().getDescription(), getProfile().isDescriptionOpen() ? 1 : 0,
+                getProfile().getBirthday(), getProfile().isBirthdayOpen() ? 1 : 0,
+                getProfile().getGender(), getProfile().isGenderOpen() ? 1 : 0,
+                getProfile().getSexuality(), getProfile().isSexualityOpen() ? 1 : 0,
+                race, getProfile().isRaceOpen() ? 1 : 0);
+    }
+
 
     private View.OnTouchListener btn_touch_listener = new View.OnTouchListener() {
 
