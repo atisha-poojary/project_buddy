@@ -111,7 +111,7 @@
                     android:id="@+id/btn_setting">
 
                 <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="10dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -129,5 +129,21 @@
         </RelativeLayout>
 
     </ScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="334dp"
+            android:layout_height="267dp"
+            android:text="                          INSTRUCTIONS\n\nHug: To give feedback to a post. \n\nComment: To provide comments on posts in the Ask category.\n\nFlag: To report any inappropriate posts.\n\nBell: To give more attention to a posts."
+            android:id="@+id/textView"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:textColor="#181616" />
+    </FrameLayout>
 
 </RelativeLayout>

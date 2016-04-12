@@ -42,8 +42,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:textSize="20sp"
-        android:text="The NJIT Buddy application is intended to be used only by people in the NJIT community. This is intended to be a supportive community where people can post pseudonymous. No information will be shared with a third party. Information collected in this research will only be used towards research and development for future purposes. The Social Interaction Lab reserves the right for any modifying or future change for the terms of use."
+        android:textSize="16sp"
+        android:text="The NJIT Buddy application is intended to be used only by people in the NJIT community. This is intended to be a supportive community where people can post pseudonymous. No information will be shared with a third party. Information collected in this research will only be used towards research and development for future purposes. The Social Interaction Lab reserves the right for any modifying or future change for the terms of use.  On Buddy, there are several categories and you may post in every category. \n\nIn all the categories, you may hug posts, flag posts to report inappropriate content, and/or ring the bell for posts which you think may need more attention.  In the &quot;Ask&quot; category, you may comment on posts as well.&quot; "
         android:id="@+id/tv1"
         android:layout_alignParentTop="true"
         android:layout_marginTop="46dp"
