@@ -11,11 +11,23 @@
     </array>
 
     <array name="gender">
-        <item>undefined</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Trans</item>
+        <item>Gander Neutral</item>
+        <item>Gander Fluid</item>
+        <item>Its Complicated</item>
+        <item>Rather not say</item>
     </array>
 
     <array name="sexuality">
-        <item>undefined</item>
+        <item>Heterosexual</item>
+        <item>Homosexual</item>
+        <item>Bisexual</item>
+        <item>Pansexual</item>
+        <item>Asexual</item>
+        <item>Its Complicated</item>
+        <item>Rather Not Say</item>
     </array>
 
     <array name="race">

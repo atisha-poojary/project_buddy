@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.BoolRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -18,6 +19,9 @@ import com.njit.buddy.app.entity.Profile;
 import com.njit.buddy.app.network.ResponseCode;
 import com.njit.buddy.app.network.task.ProfileEditTask;
 import com.njit.buddy.app.network.task.ProfileViewTask;
+import java.lang.Boolean;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author toyknight 8/16/2015.
@@ -253,7 +257,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void editGender() {
         if (getMyUID() == uid) {
             AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
-            dialog_builder.setTitle("Enter your Gender:");
+            dialog_builder.setTitle("Choose your Gender:");
 
             // Set up the input
             final EditText input = new EditText(this);
@@ -262,14 +266,52 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             input.setText(getProfile().getGender());
             dialog_builder.setView(input);
 
+           /* String[] genders = getResources().getStringArray(R.array.gender);
+
+            final boolean[] checkedGenders = new boolean[]{
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false
+            };
+
+            final List<String> genderList = Arrays.asList(genders);
+
+            dialog_builder.setMultiChoiceItems(genders, checkedGenders, new DialogInterface.OnMultiChoiceClickListener(){
+                @Override
+                public void onClick(DialogInterface dialogInterface,int which, boolean isChecked){
+                    checkedGenders[which]= isChecked;
+                    String currentItem = genderList.get(which);
+
+                    Toast.makeText(getApplicationContext(),
+                            currentItem + " " + isChecked, Toast.LENGTH_SHORT).show();
+                }
+            }
+            ); */
+
             // Set up the buttons
             dialog_builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    // Do something when click positive button
+
+                    //tv.setText("Your preferred colors..... \n");
+                    //for (int i = 0; i<checkedGenders.length; i++){
+                    //  boolean checked = checkedGenders[i];
+                    //if (checked) {
+                    //  tv.setText(tv.getText() + genderList.get(i) + ", ");
+                    //}
+                    //}
+                    //}
                     String gender = input.getText().toString();
-                    tryUpdateGender(gender);
+                     tryUpdateGender(gender);
+                    //}
                 }
             });
+
             dialog_builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -283,7 +325,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void editSexuality() {
         if (getMyUID() == uid) {
             AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
-            dialog_builder.setTitle("Enter your Sexuality:");
+            dialog_builder.setTitle("Choose your Sexuality:");
 
             // Set up the input
             final EditText input = new EditText(this);
@@ -292,9 +334,36 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             input.setText(getProfile().getSexuality());
             dialog_builder.setView(input);
 
+            /*
+            String[] sexuality= getResources().getStringArray(R.array.sexuality);
+
+            final boolean[] checkedSexuality = new boolean[]{
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false
+            };
+
+            final List<String> sexualityList = Arrays.asList(sexuality);
+
+            dialog_builder.setMultiChoiceItems(sexuality, checkedSexuality, new DialogInterface.OnMultiChoiceClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialogInterface,int which, boolean isChecked){
+                            checkedSexuality[which]= isChecked;
+                            String currentItem = sexualityList.get(which);
+
+                            Toast.makeText(getApplicationContext(),
+                                    currentItem + " " + isChecked, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            ); */
+
             // Set up the buttons
             dialog_builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
+               // @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String sexuality = input.getText().toString();
                     tryUpdateSexuality(sexuality);
@@ -321,6 +390,36 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             input.setInputType(InputType.TYPE_CLASS_TEXT);
             input.setText(getProfile().getRace());
             dialog_builder.setView(input);
+
+            /*String[] race = new String[]{
+                    "White",
+                    "Black or African American",
+                    "American Indian or Alaskan Native",
+                    "Asian",
+                    "Native Hawaiian or Other Pacific Islander"
+            };
+
+            final boolean[] checkedRace = new boolean[]{
+                    false,
+                    false,
+                    false,
+                    false,
+                    false
+            };
+
+            final List<String> sexualityList = Arrays.asList(race);
+
+            dialog_builder.setMultiChoiceItems(race, checkedRace, new DialogInterface.OnMultiChoiceClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialogInterface,int which, boolean isChecked){
+                            checkedRace[which]= isChecked;
+                            String currentItem = sexualityList.get(which);
+
+                            Toast.makeText(getApplicationContext(),
+                                    currentItem + " " + isChecked, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            ); */
 
             // Set up the buttons
             dialog_builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
