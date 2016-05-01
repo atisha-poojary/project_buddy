@@ -257,7 +257,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void editGender() {
         if (getMyUID() == uid) {
             AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
-            dialog_builder.setTitle("Choose your Gender:");
+            dialog_builder.setTitle("Enter your Gender:");
 
             // Set up the input
             final EditText input = new EditText(this);
@@ -325,7 +325,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void editSexuality() {
         if (getMyUID() == uid) {
             AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this);
-            dialog_builder.setTitle("Choose your Sexuality:");
+            dialog_builder.setTitle("Enter your Sexuality:");
 
             // Set up the input
             final EditText input = new EditText(this);
